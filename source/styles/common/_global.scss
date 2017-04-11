@@ -1,0 +1,214 @@
+@function rem($px, $base: $base_font_size) {
+    @return ($px / $base) * 1rem;
+}
+
+@function em($px, $base: $base_font_size) {
+    @return ($px / $base) * 1em;
+}
+
+@function vw($target, $vp: 1366) {
+    $vw-context: ($vp*.01) * 1px;
+    @return ($target/$vw-context) * 1vw;
+}
+
+@function vh($target, $vp : 768) {
+    $vw-context: ($vp*.01) * 1px;
+    @return ($target/$vw-context) * 1vh;
+}
+
+@function vmin($target, $vp: 768) {
+    $vw-context: ($vp*.01) * 1px;
+    @return ($target/$vw-context) * 1vmin;
+}
+
+@function mh($v) {
+    @return calc(100vh - #{em($v)});
+}
+
+@mixin clearfix {
+    zoom: 1;
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin breakpoint($point: $bp, $min : true) {
+    $min_or_max: null;
+    @if $min {
+        $min_or_max: "min";
+    } @else {
+        $min_or_max: "max";
+    }
+    @media screen and (#{$min_or_max}-width: #{em($point, 16px)}) {
+        @content;
+    }
+}
+
+@mixin normalize_padding {
+    padding: {
+        left: 10px;
+        right: 10px;
+    }
+    @include breakpoint(640px) {
+        padding: {
+            left: em($p);
+            right: em($p);
+        }
+    }
+    @include breakpoint($bp) {
+        padding: {
+            left: em($p*2);
+            right: em($p*2);
+        }
+    }
+}
+
+
+@mixin normalize_sides {
+    left: 10px;
+    right: 10px;
+    @include breakpoint(640px) {
+        left: em($p);
+        right: em($p);
+    }
+    @include breakpoint($bp) {
+        left: em($p*2);
+        right: em($p*2);
+    }
+}
+
+@mixin full($pos : absolute, $sides : false) {
+    position: $pos;
+    height: $f;
+    top: 0;
+    @if $sides == true {
+        @include normalize_sides;
+    } @else {    
+        width: $f;
+        left: 0;
+    }
+}
+
+@mixin hidden($isHidden : true, $onlyTrans : false) {
+    transition: {
+        property: visibility, opacity;
+        duration: $speed;
+    }
+    @if not $onlyTrans {
+        @if $isHidden {
+            visibility: hidden;
+            opacity: 0;
+        } @else {
+            visibility: visible;
+            opacity: 1;
+            transition-duration: $speed/2;
+        }
+    }
+}
+
+@mixin grid($max : $main-sm-columns, $points : $bp) {
+    [class*="--grid"] {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    [class*="--grid-start"] {
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+    [class*="--grid-end"] {
+        align-items: flex-end;
+        align-content: flex-end;
+    }
+    [class*="--grid-center"] {
+        align-items: center;
+        align-content: center;
+    }
+    [class*="--grid-nowrap"] {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+    }
+    [class*="__cell"] {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    @for $i from 1 through $max {
+        @include breakpoint($points) {
+            [class*="-s#{$i}"] {
+                width: percentage($i/$max);
+            }
+        }
+    }
+}
+
+@function explode($string,$dem) {
+    $list: ();
+    $sum: str-length($string);
+    @for $i from 1 through $sum {
+        $str: str-index($string, $dem);
+ 
+        @if (str-length($string) >= 1 and $str == null) {
+            $list: append($list, $string);
+            $string: '';
+        }
+ 
+        @if type-of($str) == number {
+            $each: str-slice($string,0,($str - 1));
+            $list: append($list,$each);
+            $string: str-slice($string,($str + 1), $sum);
+        }
+    }
+ 
+    @return $list;
+}
+
+@mixin borders($sides : 'all', $color : $brand-main, $weight : 1px) {
+	@if $sides == 'all' {
+		[class*='--borders'] {
+			border: $weight $color solid;
+		}
+	} @else {
+		$sides: explode($sides, ' ');
+		@each $s in $sides {
+			[class*="--border-#{$s}"] {
+				border-#{$s}: $weight $color solid;
+			}
+		}
+	}
+}
+
+@mixin grow($sizes : 'all', $sides : 'all', $v : $p) {
+	$sizes: if($sizes == 'all', 'small md lg', $sizes);
+	$sizes: explode($sizes, ' ');
+	$sides: explode($sides, ' ');
+	$row: null;
+	@each $s in $sizes {
+		@if $s == 'small' {
+			$row : 1;
+		} @else {
+			$row: if($s == 'md', 2, 4);
+		}
+		$s : if($s == 'small', '', "-#{$s}");
+		@each $side in $sides {
+			@if $side == 'all' {
+				&--grow#{$s} {
+		            padding: {
+		                top: em($p * $row);
+		                bottom: em($p * $row);
+		            }
+		        }
+			} @else {
+				&--grow#{$s}-#{$side} {
+		            padding: {
+		                #{$side}: em($p * $row);
+		            }
+		        }
+			}
+		}
+	}
+}

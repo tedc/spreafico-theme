@@ -1,0 +1,109 @@
+%inputs {
+	border: 0;
+	margin: 0;
+	outline: none;
+	border-bottom: 1px solid $brand-main;
+	color: $main-color;
+	transition: color $speed;
+	font-family: $main-font;
+	padding: em(20px);
+	@include breakpoint($bp) {
+		padding: 0 em(20px);
+	}
+	@include input-placeholder {
+		color: $light;
+		font-size: 1em;
+		font-family: $main-font;
+	}
+	&.ng-invalid.ng-touched {
+		color: #fe535f;
+		@include input-placeholder {
+			color: #fe535f;
+		}
+	}
+}
+.form {
+	border: 2px solid $brand-main;
+	background-color: $w;
+	position: relative;
+	max-width: em(900px);
+	width: $f;
+	margin: auto;
+	&:before {
+		height: 100%;
+		width: 2px;
+		background-color: $brand-main;
+		top: 0;
+		left: 50%;
+		margin-left: -1px;
+		position: absolute;
+		z-index: 1;
+		@include breakpoint($bp) {
+			content: '';
+		}
+	}
+	h2, h3, h4 {
+		font-size: em(30px);
+		font-weight: bold;
+		padding-bottom: em(40px, 30px);
+	}
+	&__content {
+		@include grow('md');
+		p {
+			padding-bottom: em(20px);
+			&:nth-last-of-type(1) {
+				padding-bottom: 0;
+			}
+		}
+		a {
+			@extend %a;
+		}
+	}
+	&__cell {
+		display: flex;
+		&--inputs {
+			flex-direction: column;
+		}
+	}
+	input {
+		&[type="text"], &[type="email"], &[type="tel"] {
+			@extend %inputs;
+			flex: 1;
+		}
+		&[type="text"] {
+			border-top: 2px solid $brand-main;
+			@include breakpoint($bp) {
+				border-top: 0;
+			}
+		}
+	}
+	.button {
+		border: 0;
+		margin: 0;
+		cursor: pointer;
+		&__alert {
+			@include full;
+			color: $w;
+			background-color: $brand-main;
+			visibility: hidden;
+			opacity: 0;
+			transition: $speed visibility, $speed opacity;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 2;
+			&--visible {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+	textarea {
+		@extend %inputs;
+		flex: 4 1 auto;
+		resize: none;
+		padding: {
+			top: em(20px)
+		}
+	}
+}

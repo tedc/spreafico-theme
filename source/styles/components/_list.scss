@@ -1,0 +1,16 @@
+.list {
+	@include grow('lg', 'bottom');
+	li {
+		padding-bottom: em(20px);
+		&:nth-last-child(1) {
+			padding-bottom: 0;
+		}
+	}
+	a {
+		font-size: em(24px);
+		@extend %a;
+	}
+	&:before {
+
+	}
+}

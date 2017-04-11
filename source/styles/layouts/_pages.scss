@@ -1,0 +1,62 @@
+.page {
+	&-template {
+		&-template {
+			&-contact {
+				.header {
+					@include breakpoint($bp) {
+						text-align: right;
+					}
+				}
+				.map {
+					position: relative;
+					padding-top: percentage(508px/1366px);
+					&__container {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: $f;
+						height: percentage(630px/508px);
+					}
+					&__nav {
+						position: absolute;
+						width: em(80px);
+						@include normalize_sides;
+						top: em(80px) * -1;
+					}
+					&__zoom {
+						display: block;
+						background-color: $dark-color;
+						transition: background-color $speed;
+						position: relative;
+						height: em(80px);
+						&:before, &:after {
+							width: em(20px);
+							height: 4px;
+							background-color: $w;
+							position: absolute;
+							top: 50%;
+							left: em(30px);
+							margin-top: 2px * -1;
+							content: '';
+						}
+						&--in {
+							&:after {
+								transform: translateZ(0) rotate(90deg);
+							}
+						}
+						&:hover {
+							background-color: $brand-main;
+						}
+					}
+					.marker {
+						position: absolute;
+					}
+					.icon-marker {
+						font-size: em(100px);
+						color: $dark-color;
+					}
+				}
+			}
+		}
+	}
+}

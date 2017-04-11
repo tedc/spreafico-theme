@@ -1,0 +1,24 @@
+.container {
+	@include grow('lg');
+	@include grow('lg', 'bottom');
+	&__content {
+		@include grow('small', 'top');
+		p {
+			@include breakpoint($bp){
+				column-count: 2;
+				column-gap: em(40px);
+				column-fill: balance;
+			}
+		}
+		text-align: center;
+		@include breakpoint($bp) {
+			text-align: left;
+		}
+	}
+	&__title {
+		text-align: center;
+		@include breakpoint($bp) {
+			text-align: left;
+		}
+	}
+}

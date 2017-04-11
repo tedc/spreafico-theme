@@ -1,0 +1,143 @@
+.blocks {
+	@include grow('lg');
+	overflow: hidden;
+	p {
+		font-size: em(20px);
+		line-height: percentage(45px/20px);
+		padding: 1em 1em 0;
+		@include breakpoint($bp) {
+			padding-left: 0;
+			padding-bottom: 1em;
+		}
+	}
+	&__container {
+		display: flex;
+		overflow: hidden;
+		@include breakpoint($bp) {
+			flex-wrap: wrap;
+			overflow: visible;
+		}
+	}
+	&__cell {
+		@include grow('md');
+		&--figure {
+			display: flex;
+			align-items: center;
+			margin: 0;
+			img {
+				width: $f !important;
+				height: auto !important;
+				transition: transform $speed;
+				display: block;
+			}
+			&-alt {
+				display: none;
+				@include breakpoint($bp) {
+					display: flex;
+				}
+			}
+			@include breakpoint($bp) {
+				padding: em(10px);
+			}
+		}	
+		&--content {
+			text-align: center;
+			@include breakpoint($bp) {
+				text-align: left;
+				padding: {
+					left: em(10px);
+					right: em(10px);
+				}
+			}
+		}
+	}
+	&__image {
+		overflow: hidden;
+		position: relative;
+		flex: 0 0 auto;
+		width: $f;
+		&:hover {
+			img {
+				transform: scale(1.25) translateZ(0);
+			}
+		}
+	}
+	&__button {
+		text-align: center;
+		position: relative;
+		z-index: 2;
+		.blocks__cell {
+			@include breakpoint($bp) {
+				transform: translate3d($f, 0, 0);
+			}
+		}
+	}
+	&__nav {
+		@include grow();
+		text-align: center;
+		@include breakpoint($bp) {
+			display: none;
+		}
+	}
+	&__page {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		margin: 0 10px;
+		border-radius: 16px;
+		background-color: $dark-color;
+		transition: background-color $speed, transform $speed;
+		transform: scale(0.75) translateZ(0);
+		&:hover, &--active {
+			transform: scale(1) translateZ(0);
+			background-color: $brand-main;
+		}
+	}
+	&__row {
+		width: $f;
+		flex: 0 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		&--line {
+			@include breakpoint($bp) {
+				transform: none !important;
+				&-first {
+					.blocks__cell--content {
+						transform: translate3d($f*2, 0, 0);
+					}
+					.blocks__cell--figure {
+						.blocks--home & {
+							transform: translate3d($f, 0, 0);
+						}
+					}
+				}
+				&-second {
+					.blocks__cell--content {
+						transform: translate3d($f*-1, 0, 0);
+					}
+					.blocks__cell--figure {
+						.blocks--home & {
+							transform: translate3d($f, 0, 0);	
+							&-alt {
+								transform: none;
+							}
+						}
+						.blocks--linee & {
+							transform: translate3d($f*2, 0, 0);
+						}
+					}
+				}
+				&-third {
+					.blocks__cell--content {
+						transform: translate3d($f, 0, 0);
+					}
+					.blocks__cell--figure {
+						&-alt {
+							transform: translate3d($f, 0, 0);
+						}
+					}
+				}
+			}
+		}
+	}
+}

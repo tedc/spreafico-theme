@@ -1,0 +1,17 @@
+body#tinymce {
+	margin: 12px !important;
+	p {
+		padding-bottom: em(20px);
+	}
+	a {
+		color: $blu;
+		font-weight: bold;
+		&:hover {
+			color: $dark-color;
+			text-decoration: underline;
+		}
+	}
+	h1, h2, h3, h4, h5 {
+		padding-bottom: em(20px);
+	}
+}

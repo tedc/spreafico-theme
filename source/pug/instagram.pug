@@ -1,0 +1,12 @@
+header.instagram__header.instagram__header--grow-lg(ng-square="{kind:'instagram'}")
+	h4.instagram__title
+		a(ng-href="http://instagram.com/{{username}}" ng-attr-target="_blank")
+			span.instagram__name(ng-bind-html="'@' + username")
+			br
+			span.instagram__follow.instagram__follow--grow-top.instagram__follow--upper(ng-bind-html="follow")
+.instagram__container
+	ul.instagram__items.instagram--grid
+		.instagram__cell.instagram__cell--s4(ng-repeat="item in items" data-item="{{$index}}")
+			figure.instagram__figure(ng-sm="scrollmagic($index)")
+				a(ng-href="{{item.link}}" target="_blank")
+					img(ng-src="{{resize(item.images.thumbnail.url)}}")

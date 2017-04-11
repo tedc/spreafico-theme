@@ -1,0 +1,105 @@
+@include grid();
+[class*="shrink"] {
+	@include normalize_padding;
+}
+[class*="shrink-left-only"] {
+	padding: {
+        left: 0;
+        right: 0;
+    }
+	@include breakpoint($bp) {
+        padding: {
+            left: em($p*2);
+            right: 0;
+        }
+    }
+}
+[class*="shrink-right-only"] {
+	padding: {
+        left: 0;
+        right: 0;
+    }
+	@include breakpoint($bp) {
+        padding: {
+            left: 0;
+            right: em($p*2);
+        }
+    }
+}
+[class*="shrink-double"] {
+	@include breakpoint($bp) {
+        padding: {
+            left: em($p*4);
+            right: em($p*4);
+        }
+    }
+}
+[class*="shrink-right-double"] {
+	@include breakpoint($bp) {
+        padding: {
+            right: em($p*4);
+        }
+    }
+}
+[class*="shrink-left-double"] {
+	@include breakpoint($bp) {
+        padding: {
+            left: em($p*4);
+        }
+    }
+}
+[class~="align"] {
+	display: flex;
+	> * {
+		width: $f;
+		flex: 0 0 auto;
+	}
+}
+[class*="-align-start"] {
+	align-content: flex-start;
+	align-items: flex-start;
+}
+[class*="-align-center"] {
+	align-content: center;
+	align-items: center;
+}
+[class*="-align-end"] {
+	align-content: flex-end;
+	align-items: flex-end;
+}
+[class*="even"] {
+	order: 0;
+	@include breakpoint($bp) {
+		order: 2;
+	}
+}
+
+[class*="border-bottom"] {
+    position: relative;
+    &:after {
+        width: $f;
+        height: 1px;
+        background-color: $brand-main;
+        position: absolute;
+        left: 0;
+        bottom: em($p*-1);
+        content: '';
+        transition: width $speed;
+    }
+    .desktop & {
+        &:after {
+            width: 0%;
+        }
+    }
+}
+[class*="border-bottom-active"] {
+    .desktop & {
+        &:after {
+            width: $f;
+        }
+    }
+}
+
+[class*="border-top"] {
+    border-top: 1px solid $brand-main;
+}

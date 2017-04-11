@@ -1,0 +1,161 @@
+.footer {
+	background-color: $brand-main;
+	color: $w;
+	@include grow('md', 'top');
+	a {
+		@extend %awhite;
+	}
+	&__container {
+		@include grow();
+		img {
+			max-width: em(100px);
+		}
+		p, a {
+			font-size: em(12px);
+		}
+		[class^="icon"], [class*=" icon"] {
+			font-size: 20px;
+			margin-right: 1em;
+		}
+		.icon-credits {
+			margin-right: 0;
+		}
+		&--grid-align-center {
+			justify-content: space-between;
+			border-top: 1px solid #b2a488;
+		}
+	}
+}
+
+.cat {
+	@include grow('small');
+	z-index: 9998;
+	background-color: $blu;
+	color: $w;
+	display: flex;
+	position: fixed;
+	width: $f;
+	left: 0;
+	bottom: 0;
+	transition: $speed transform;
+	transform: translate3d(0, $f, 0);
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+	&--inview {
+		transform: translate3d(0, 0%, 0);
+	}
+	a {
+		color: $w;
+		font-weight: bold;
+		&:hover {
+			color: $lighter;
+		}
+	}
+	&__title {
+		font-weight: bold;
+		position: relative;
+		color: $w;
+		margin: 0 em(20px);
+		padding: em(10px) 0;
+		&:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: em(4px);
+			height: 1px;
+			background: $w;
+			width: $f;
+			transition: $speed transform;
+			transform-origin: right center;
+		}
+		font-size: 1em;
+		&:hover {
+			&:after {
+				transform: scaleX(0) translateZ(0);
+			}
+		}
+	}
+}
+
+.popup {
+	width: $f;
+	overflow: hidden;
+	bottom: 0;
+	position: fixed;
+	background-color: $w;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	transform: translate3d(0, $f*-1, 0);
+	transition: transform $speed, opacity $speed;
+	opacity: 0;
+	&--visible {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+	.logged-in.admin-bar & {
+		top: 32px;
+	}
+	&__svg {
+		@include full;
+		svg {
+			@include full;
+		}
+	}
+	&__container {
+		@include full;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@include grow('lg');
+		transition: $speed transform;
+		transform: translate3d(0, $f, 0);
+		.popup--visible & {
+			transform: translate3d(0, 0, 0);
+		}
+	}
+	&__close {
+		width: em(80px);
+		height: em(80px);
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: $w;
+		z-index: 20;
+		&:before {
+			content: attr(data-close);
+			right: $f;
+			padding-right: em(20px);
+			text-transform: uppercase;
+			color: $light;
+			display: flex;
+			align-items: center;
+			height: $f;
+			position: absolute;
+		}
+		&-line {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: em(60px);
+			margin: -2px 0 0 (em(30px) * -1);
+			background-color: $brand-main;
+			height: 4px;
+			transition: $speed transform;
+			&--first {
+				transform: rotate(45deg) translate3d(0, 0, 0);
+				.popup__close:hover & {
+					transform: rotate(-45deg) translate3d(0, 0, 0);
+				}
+			}
+			&--second {
+				transform: rotate(-45deg) translate3d(0, 0, 0);
+				.popup__close:hover & {
+					transform: rotate(45deg) translate3d(0, 0, 0);
+				}
+			}
+		}
+	}
+}

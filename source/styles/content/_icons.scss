@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "sprfc-icons";
+  src: url('../fonts/sprfc-icons.eot');
+  src: url('../fonts/sprfc-icons.eot?#iefix') format('eot'),
+    url('../fonts/sprfc-icons.woff2') format('woff2'),
+    url('../fonts/sprfc-icons.woff') format('woff'),
+    url('../fonts/sprfc-icons.ttf') format('truetype'),
+    url('../fonts/sprfc-icons.svg#sprfc-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon"], [class*=" icon"] {
+  display: inline-block;
+  font-family: "sprfc-icons";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-big:before { content: "\EA01" }
+.icon-arrow-left:before { content: "\EA02" }
+.icon-arrow-right:before { content: "\EA03" }
+.icon-credits:before { content: "\EA04" }
+.icon-facebook:before { content: "\EA05" }
+.icon-houzz:before { content: "\EA06" }
+.icon-instagram:before { content: "\EA07" }
+.icon-marker:before { content: "\EA08" }
+.icon-twitter:before { content: "\EA09" }

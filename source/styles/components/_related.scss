@@ -1,0 +1,68 @@
+.related-linee {
+	&__header {
+		@include grow('md');
+		display: inline-block;
+	}
+	&__title {
+		position: relative;
+		z-index: 1;
+	}
+	&__cell {
+		@include grow('md');
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: {
+			position: center;
+			repeat: no-repeat;
+			size: cover;
+		}
+		position: relative;
+		z-index: 10;
+		margin-bottom: em($p*4);
+		.icon-arrow-big {
+			font-size: em(24px);
+			position: absolute;
+			right: em(40px, 24px);
+			bottom: em(40px, 24px)*-1;
+			color: $brand-main;
+			@include breakpoint($bp) {
+				opacity: 0;
+				transform: translate3d($f*-1, 0, 0);
+				transition: opacity $speed, transform $speed;
+			}
+		}
+		&:before {
+			content: '';
+			background-color: $w;
+			@include full;
+			opacity: .8;
+			@include breakpoint($bp) {
+				opacity: 0;
+				transition: opacity $speed;
+			}
+		}
+		.related-linee__title {
+			padding: em(20px, 36px);
+			@include breakpoint($bp) {
+				opacity: 0;
+				adding: em(20px, 50px);
+				transition: opacity $speed;
+			}
+		}
+		&:hover {
+			@include breakpoint($bp) {
+				&:before {
+					opacity: .8;
+				}
+				.related-linee__title, .icon-arrow-big {
+					opacity: 1;
+				}
+				.icon-arrow-big {
+					transform: translate3d(0%, 0, 0);
+				}
+			}
+		}
+	}
+}

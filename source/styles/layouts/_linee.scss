@@ -1,0 +1,84 @@
+.linee {
+	@include grow('lg');
+	&--slider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		min-height: 100vh;
+		.icon-arrow-big {
+			color: $w;
+			display: block;
+			font-size: em(24px);
+			padding-top: em(20px, 24px);
+			text-align: right;
+			position: relative;
+			z-index: 21;
+		}
+	}
+	&__content {
+		width: $f;
+		@include breakpoint($bp, false) {
+			flex-wrap: wrap !important;
+		}
+		@include breakpoint($bp) {
+			box-shadow: em(8px, 45px) em(8px, 45px) em(140px, 45px) transparentize($blu, .75);
+		}
+	}
+	&__container {
+		position: relative;
+		z-index: 20;
+		@include breakpoint($bp) {
+			max-width: em(435px);
+		}
+	}
+	&__title {
+		.linee--slider & {
+			padding-bottom: em(20px, 24px);
+		}
+		.linee__cell & {
+			line-height: 150%;
+		}
+	}
+	&__cell {
+		&--label {
+			background-color: $lighter;
+			display: flex;
+			text-align: left;
+			align-items: center;
+		}
+		@include grow('small');
+		a {
+			&:not([data-more]){
+				@extend %anormal;
+			}
+		}
+		&--slide {
+			@include breakpoint($bp, false) {
+				transform: none !important;
+				text-align: center;
+			}
+			@include breakpoint($bp) {			
+				display: flex;
+			}
+		}
+	}
+	&__cover {
+		margin: 0;
+		img {
+			width: $f;
+		}
+		@include breakpoint($bp) {
+			display: none;
+		}
+	}
+	&__button {
+		transform: translate3d(0, $f/2*-1, 0);
+		margin: 0 auto;
+		@include breakpoint($bp) {
+			transform: none;
+			width: $f;
+			box-shadow: none;
+		}
+	}
+}

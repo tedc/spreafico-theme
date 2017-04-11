@@ -1,0 +1,1 @@
+<div class="instagram instagram--shrink instagram--grow-lg" ng-instagram follow-text="<?php _e('Seguici su instagram', 'sprfc'); ?>"></div>

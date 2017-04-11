@@ -1,0 +1,253 @@
+[class*="aside"] {
+	@include breakpoint($bp) {
+		position: sticky;
+		top: em(70px);
+		margin-bottom: em($p*4);
+	}
+}
+
+.post {
+	@include grow('md lg');
+	.blog &, .category & {
+		border-bottom: 1px solid $brand-main;
+	}
+	&__thumbnail {
+		.blog &, .category & {
+			border-bottom: 4px solid $brand-main;
+			margin: {
+				top: 0;
+				bottom: em($p) / 2;
+		        left: 10px*-1;
+		        right: 10px*-1;
+		    }
+		    @include breakpoint(640px) {
+		     	margin: {
+		            left: em($p)*-1;
+		            right: em($p)*-1;
+		        }
+		    }
+		    @include breakpoint($bp) {
+		        margin: {
+		            left: em($p*2)*-1;
+		            right: em($p*2)*-1;
+					bottom: em($p);
+		        }
+		    }
+		}
+		.single & {
+			margin: 0;
+			position: relative;
+			background: {
+				position: center;
+				size: cover;
+				repeat: no-repeat;
+			}
+			&:before {
+				display: block;
+				content: '';
+				padding-top: percentage(588px/1204px);
+			}
+			&:after {
+				position: absolute;
+				bottom: 0;
+				width: $f;
+				left: 0;
+				background: linear-gradient(to top,  transparentize($b, .5), transparentize($b, 1) 50%);
+				content: '';
+				height: $f;
+			}
+			img {
+				visibility: hidden;
+				position: absolute;
+			}
+		}
+	    img {
+	    	display: block;
+	    	width: $f !important;
+	    	height: auto !important;
+	    }
+	}
+	&__summary {
+		@include grow('small');
+		color: $main-color;
+		font-weight: 300;
+	}
+	&__title {
+		a {
+			@extend %anormal;
+		}
+	}
+	&__updated {
+		text-transform: uppercase;
+		display: block;
+		text-align: right;
+		letter-spacing: $spacing/2;
+		@include grow('small', 'bottom');
+	}
+	&--grid {
+		overflow: visible;
+	}
+	&__meta {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		color: $w;
+	}
+	&__category {
+		@include grow('small', 'bottom');
+		a {
+			color: $w;
+			transition: opacity $speed;
+			&:hover {
+				opacity: .75;
+			}
+		}
+	}
+	&__cell {
+		@include grow('md');
+		&--s8 {
+			position: relative;
+			z-index: 1;
+			@include breakpoint($bp) {
+				margin-top: em(200px) * -1;
+			}
+		}
+		&--aside {
+			color: $main-color;
+			a {
+				font-size: 32px;
+				margin-top: 40px;
+				margin-right: 20px;
+				@extend %anormal;
+			}
+		}
+	}
+	&__content {
+		background-color: $w;
+		@include grow('md');
+		h1 {
+			padding-bottom: em(40px, 45px);
+		}
+		p {
+			padding-bottom: em(30px);
+			height: auto;
+			overflow: hidden;
+			&:nth-last-of-type(1) {
+				padding-bottom: 0;
+			}
+		}
+		a {
+			@extend %a;
+			text-decoration: underline;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		blockquote {
+			padding: em(20px) em(40px);
+			margin: 0 0 em(30px);
+			border-top: 1px solid $brand-main;
+			border-bottom: 1px solid $brand-main;
+		}
+		h2, h3, h4, h5, h6, li {
+			line-height: $f*2;
+		}
+		ul, ol {
+			padding-bottom: em(30px);
+		}
+		ul {
+			li {
+				position: relative;
+				padding-left: 24px;
+				&:before {
+					content: '';
+					border-radius: 4px;
+					width: 4px;
+					height: 4px;
+					position: absolute;
+					background-color: $brand-main;
+					left: 0;
+					top: 10px;
+				}
+			}
+		}
+		ol {
+			list-style-type: decimal;
+			margin-left: em(20px);
+		}
+	}
+	&s {
+		&-nav {
+			letter-spacing: $spacing;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			@include grow('all');
+			a {
+				@extend %anormal;
+				font-size: em(20px);
+			}
+			&__number {
+				font-size: em(24px);
+				font-weight: bold;
+				flex: 3;
+				text-align: center;
+				color: $brand-main;
+			}
+			&--noprev {
+				&:before {
+					content: attr(data-prev);
+					opacity: .3;
+				}
+			}
+			&--nonext {
+				&:after {
+					content: attr(data-next);
+					opacity: .3;
+				}
+			}
+		}
+	}
+}
+
+.related {
+	width: $f;
+	flex: 0 0 auto;
+	@include grow('lg', 'bottom');
+	&__cell {
+		display: flex;
+		&--s4 {
+			background-color: $lighter;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+		}
+		@include grow('small');
+	}
+	&__title {
+		a {
+			@extend %anormal;
+		}
+	}
+	&__summary {
+		@include grow('small');
+	}
+	&__content {
+		width: $f;
+		@include grow('small');
+		border: {
+			top: 1px solid $brand-main;
+			bottom: 1px solid $brand-main;
+		}
+		@include breakpoint($bp) {
+			margin-left: em(20px);
+		}
+		&--first {
+			@include breakpoint($bp) {
+				margin-left: 0;
+				margin-right: em(20px);
+			}
+		}
+	}
+}

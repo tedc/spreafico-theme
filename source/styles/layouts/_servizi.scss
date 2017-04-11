@@ -1,0 +1,41 @@
+.services {
+	position: relative;
+	z-index: 1;
+	&__content {
+		text-align: center;
+		background-color: $w;
+		@include grow('md');
+		p {
+			font-size: em(20px);
+		}
+		@include breakpoint($bp) {
+			text-align: left;
+			border: em(40px) solid $lighter;	
+			margin: {
+				top: em($p*2);
+				left: em(10px);
+				right: em(10px),
+			}
+		}
+	}
+	&__cell {
+		@include breakpoint($bp) {
+			margin: {
+				top: em($p*2);
+			}
+		}
+	}
+}
+
+.svg {
+	width: em(120px);
+	margin: 0 auto;
+	padding: 0;	
+	path, rect, polygon, polyline, circle {
+		fill: #f7941d !important;
+	}
+	@include grow('md', 'bottom');
+	@include breakpoint($bp) {
+		margin: 0;
+	}
+}

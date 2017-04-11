@@ -1,0 +1,292 @@
+.banner {
+	height: em(80px);
+	position: fixed;
+	width: $f;
+	z-index: 9999;
+	background-color: $w;
+	top: 0;
+	justify-content: space-between;
+	display: flex;
+	overflow: visible;
+	.logged-in.admin-bar & {
+		margin-top: 32px;
+	}
+	&__container {
+		display: flex;
+		align-items: center;
+	}
+	&__logo {
+		height: em(50px);
+		width: em(121px);
+		position: relative;
+		svg {
+			@include full();
+		}
+		polyline {
+			transition: stroke-dashoffset $speed*2;
+			&:nth-of-type(1) {	
+				stroke-dasharray: 0px;
+				stroke-dashoffset: 1000px;
+			}
+			&:nth-of-type(2) {	
+				stroke-dasharray: 1000px;
+				stroke-dashoffset: 0;
+			}
+		}
+		&:hover, .banner--active & {
+			polyline {
+				&:nth-of-type(1) {	
+					stroke-dashoffset: 0px;
+				}
+				&:nth-of-type(2) {	
+					stroke-dashoffset: 1000px;
+				}
+			}
+		}
+	}
+	&__toggle {
+		background-color: $brand-main;
+		transition: background-color $speed;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 em($p);
+		width: em(80px);
+		cursor: pointer;
+		position: relative;
+		&:before, &:after {
+			top: 0;
+			transition: transform $speed, opacity $speed;
+			height: $f;
+			right: $f;
+			display: flex;
+			align-items: center;
+			padding-right: em(30px, 14px);
+			font-size: em(14px);
+			text-transform: uppercase;
+			color: #808285;
+			font-weight: normal;
+			position: absolute;
+			letter-spacing: $spacing;
+		}
+		&:before {
+			content: attr(data-open);
+		}
+		&:after {
+			content: attr(data-close);
+			opacity: 0;
+			transform: scale(0) translate3d(0,0,0);
+		}
+		&:hover, .banner--active & {
+			background-color: $light;
+		}
+		.banner--active & {
+			&:before {
+				opacity: 0;
+				transform: scale(0) translate3d(0,0,0);
+			}
+			&:after {
+				opacity: 1;
+				transform: scale(1) translate3d(0,0,0);
+			}
+		}
+		&-line {
+			background-color: $w;
+			height: 4px;
+			transition: opacity $speed, transform $speed;
+			&--center {
+				margin: 4px 0;
+			}
+			&--top {
+				.banner--active & {
+					opacity: 0;
+					transform: translate3d(-100%, 0, 0);
+				}
+			}
+			&--bottom {
+				.banner--active & {
+					opacity: 0;
+					transform: translate3d(100%, 0, 0);
+				}
+			}
+		}
+	}
+	&__nav {
+		position: fixed;
+		z-index: 9999;
+		background-color: $w;
+		top: em(80px);
+		left: 0;
+		height: calc(100vh - #{em(80px)});
+		width: $f;
+		display: flex;
+		flex-direction: column;
+		transition: opacity $speed, visibility $speed;
+		transition-delay: $speed/2;
+		visibility: hidden;
+		opacity: 0;
+		.banner--active & {	
+			visibility: visible;
+			opacity: 1;
+			transition-delay: 0;
+		}
+		&-container {
+			flex: 20;
+			overflow: hidden;
+			position: relative;
+		}
+		&:before {
+			position: absolute;
+			width: 0;
+			height: 1px;
+			background-color: $light;
+			content: '';
+			top: 0;
+			left: 0;
+			transition: width $speed;
+			.banner--active & {
+				width: $f;
+				transition-delay: $speed/2;
+			}
+		}
+		.logged-in.admin-bar & {
+			margin-top: 32px;
+			height: calc(100vh - #{em(80px)} - 32px);
+		}
+		a, .menu:before {
+			font-size: em(40px);
+			font-weight: 300;
+		}
+		a {
+			@extend %light;
+		}
+		.menu {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-end;
+			align-content: flex-end;
+			@include grow('lg');
+			flex: 0 0 auto;	
+			@include breakpoint($bp) {
+				width: 45%;
+			}
+			
+			&--left {	
+				border-bottom: 1px solid $light;
+				@include breakpoint($bp) {
+					width: 55%;
+					border-bottom: 0;
+				}	
+				position: relative;
+				&:after {
+					position: absolute;
+					height: 0;
+					width: 1px;
+					background-color: $light;
+					content: '';
+					top: 0;
+					right: 0;
+					transition: height $speed;
+					.banner--active & {
+						height: $f;
+						transition-delay: $speed/2;
+					}
+				}
+			}
+			&:before, &__item {
+				padding: em(5px) 0;
+				width: $f;
+				flex: 0 0 auto;
+				transition: opacity $speed, transform $speed;
+				transition-timing-function: ceaser($easeOutBack);
+				opacity: 0;
+				transform: translate3d(-10%, 0, 0);
+				.banner--active & {
+					opacity: 1;
+					transform: translate3d(0%, 0, 0);
+					transition-delay: $speed/2;
+				}
+			}
+			&:before {
+				content: attr(data-title);
+				color: $brand-main;
+				.banner--active & {
+					transition-delay: $speed/2;
+				}
+			}
+			.menu__item {
+				@for $i from 1 through 12 {
+					&:nth-child(#{$i}) {
+						.banner--active & {
+							$delay: $i * .05s;
+							transition-delay: ($speed/2) + $delay;
+						}
+					}
+				}
+			}
+		}
+	}
+	&__footer {
+		width: $f;
+		justify-content: space-between;
+		position: relative;
+		align-items: center;
+		&:before {
+			position: absolute;
+			width: 0;
+			height: 1px;
+			background-color: $light;
+			content: '';
+			top: 0;
+			transition: width $speed;
+			right: 0;
+			.banner--active & {
+				width: $f;
+				transition-delay: $speed/2;
+			}
+		}
+		@include grow('small');
+		p {
+			font-size: 12px;
+			opacity: 0;
+			transform: opacity $speed;
+			.banner--active & {
+				opacity: 1;
+				transition-delay: $speed/2;
+			}
+		}
+		[class^="icon"], [class*=" icon"] {
+			font-size: 16px;
+			margin-right: 10px;
+			@extend %a;
+			font-weight: normal;
+		}
+	}
+
+}
+
+.social {
+	line-height: 1;
+}
+
+.breadcrumb {
+	display: flex;
+	align-items: center;
+	visibility: hidden;
+	transition: opacity $speed, visibility $speed;
+	@include breakpoint($bp) {
+		visibility: visible;
+		.banner--active & {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+	span, a {
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: $spacing/2;
+	}
+	a {
+		@extend %a;
+	}
+}

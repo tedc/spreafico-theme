@@ -1,0 +1,108 @@
+*, *:after, *:before {
+    box-sizing: border-box !important;
+}
+
+
+body {
+    font-size: $base_font_size - 4px;
+    color: $main-color;
+    margin: 0;
+    padding-top: em(80px);
+    font-family: $main-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    @include breakpoint(640px) {
+        font-size: $base_font_size - 2px;
+    }
+    @include breakpoint(1024px) {
+        font-size: $base_font_size;
+    }
+    &.blog, &.category, &.single {
+        overflow: visible;
+    }
+}
+
+a {
+    text-decoration: none;
+    transition: color $speed;
+}
+
+p, h1, h2, h3, h4, h5, h6, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+}
+
+ul, ol {
+    list-style-type: none;
+}
+
+p {
+	line-height: $f*2;
+    letter-spacing: $spacing;
+}
+
+strong {
+	font-weight: bold;
+    color: $dark-color;
+}
+
+[class*="__title"] {
+	font-weight: 300;
+	color: $dark-color;
+	line-height: percentage(130px/120px);
+    letter-spacing: $spacing/2;
+    font-size: em(18px);
+    @include breakpoint($bp) {
+        font-size: em(24px);
+    }
+}
+[class*="-small"] {
+    font-size: em(20px);
+    @include breakpoint($bp) {
+        font-size: em(30px);
+    }
+}
+[class*="-medium"] {
+	font-size: em(24px);
+    @include breakpoint($bp) {
+        font-size: em(45px);
+    }
+}
+[class*="-big"] {
+    font-size: em(36px);
+    @include breakpoint($bp) {
+        font-size: em(50px);
+    }
+}
+[class*="-huge"] {
+	font-size: vw(80px);
+    letter-spacing: 0;
+ //    .home & {
+ //        font-size: vw(100px);
+ //        padding-bottom: 80px;
+ //    }
+	// @include breakpoint(1366px) {
+	// 	font-size: em(120px);
+ //        padding-bottom: em(80px, 120px);
+ //        .home & {
+ //            font-size: em(100px);
+ //            padding-bottom: 0;
+ //        }
+	// }
+}
+[class*="-ungrow"] {
+    padding: 0;
+}
+[class*="-upper"] {
+	text-transform: uppercase;
+}
+[class*="-emphasis"] {
+	color: $brand-main;
+    strong {
+        color: $brand-main;
+    }
+}

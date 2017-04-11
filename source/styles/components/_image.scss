@@ -1,0 +1,33 @@
+.image {
+	@include grow('lg');
+	&__item {
+		margin: 0;
+		height: 0;
+		position: relative;
+		overflow: hidden;
+		.desktop & {
+			background: {
+				size: cover;
+				repeat: no-repeat;
+				attachment: fixed;
+			}
+		}
+		img {
+			@include full;
+			.desktop & {
+				visibility: hidden;
+			}
+		}
+		&--normal {
+			height: auto;
+			img {
+				position: static;
+				width: $f;
+				height: auto;
+				.desktop & {
+					visibility: visible;
+				}
+			}
+		}
+	}
+}

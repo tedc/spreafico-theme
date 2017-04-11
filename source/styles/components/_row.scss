@@ -1,0 +1,32 @@
+.row {
+	@include grow('lg');
+	text-align: center;
+	color: $w;
+	position: relative;
+	&__button {
+		@include grow('lg', 'top');
+	}
+	.row__title {
+		position: relative;
+		color: $w;
+	}
+	p {
+		max-width: em(690px);
+		padding-top: em($p*2);
+		margin: auto;
+		position: relative;
+		z-index: 1;
+	}
+	&:before {
+		@include full;
+		background: $b;
+		opacity: .65;
+		content: '';
+	}
+}
+
+.divider {
+	border: 0;
+	margin: 0;
+	height: em($p*4);
+}

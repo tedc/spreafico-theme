@@ -1,0 +1,169 @@
+%a {
+	color: $brand-main;
+	font-weight: bold;
+	&:hover {
+		color: $dark-color;
+	}
+}
+
+%awhite {
+	color: $w;
+	&:hover {
+		color: $dark-color;
+	}
+}
+
+%btn {
+	border: 3px solid $brand-main;
+	background-color: $w;
+	color: $main-color;
+	line-height: 1;
+	padding: em(30px);
+	min-width: em(300px);
+	display: inline-block;
+	text-transform: uppercase;
+	position: relative;
+	text-align: center;
+	outline: none;
+	font-family: $main-font;
+	&:before {
+		@include full;
+		background-color: $brand-main;
+		opacity: 0;
+		transform: scaleX(.25) translateZ(0);
+		transition: transform $speed/2, opacity $speed/2;
+		z-index: 0;
+		font-weight: 300;
+		content: '';
+	}
+	&:hover {
+		&:not(:disabled) {
+			color: $w;
+			&:before {
+				opacity: 1;
+				transform: scaleX(1) translateZ(0);
+			}
+		}
+	}
+	&:disabled {
+		cursor: auto;
+	}
+}
+
+%anormal {
+	color: $dark-color;
+	font-weight: 400;
+	&:hover {
+		color: $brand-main;
+	}
+}
+
+%light {
+	color: $dark-color;
+	font-weight: 300;
+	&:hover {
+		color: $brand-main;
+	}
+}
+
+%more {
+	font-weight: bold;
+	color: $main-color;
+	text-transform: uppercase;
+	&:hover {
+		color: $brand-main;
+	}
+}
+
+%show {
+	display: inline-flex;
+	align-items: center;
+	box-shadow: 0 em(8px, 30px) em(20px, 30px) transparentize($blu, .75);
+	padding: em(40px, 30px);
+	font-size: em(30px);
+	background-color: $w;
+	color: $dark-color;
+	position: relative;
+	text-transform: uppercase;
+	font-weight: 300;
+	letter-spacing: .140em;
+	transition: box-shadow $speed;
+	text-align: center;
+	justify-content: center;
+	@include breakpoint($bp) {
+		box-shadow: 0 em(8px, 45px) em(20px, 45px) transparentize($blu, .75);
+		padding: em(40px, 45px);
+		font-size: em(45px);
+	}
+	&:before {
+		@include full;
+		content: '';
+		background-color: $dark-color;
+		transform: scale(0) translateZ(0);
+		transition: $speed transform $speed/3;
+	}
+	&:after {
+		position: absolute;
+		overflow: hidden;
+		top: 50%;
+		left: 50%;
+		right: 50%;
+		bottom: 50%;
+		background-color: $w;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: em(30px, 30px);
+		transition: {
+			property: left, right, top, bottom;
+			duration: $speed;
+		}
+		content: attr(data-more);
+		@include breakpoint($bp) {
+			font-size: em(30px, 45px);
+		}
+	}
+	&:hover {
+		&:before {
+			transform: scale(1) translateZ(0);
+			transition-delay: 0;
+		}
+		&:after {
+			top: em(10px, 45px);
+			left: em(10px, 45px);
+			right: em(10px, 45px);
+			bottom: em(10px, 45px);
+			transition-delay: $speed/3;
+		}
+	}
+}
+
+[ng-click] {
+	cursor: pointer;
+}
+
+[class*="show"] {
+	@extend %show;
+}
+
+.button {
+	@extend %btn;
+	&__label {
+		position: relative;
+		z-index: 1;
+		display: inline-block;
+		font-size: em(20px);
+		letter-spacing: $spacing;
+		transition: opacity $speed;
+	}
+	&:disabled {
+		.button__label {
+			opacity: .65;
+		}
+	}
+}
+
+.more {
+	@extend %more;
+}

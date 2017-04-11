@@ -1,0 +1,561 @@
+[ng-square] {
+	position: relative;
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+	.slider & {
+		position: static;
+	}
+}
+
+[ng-sm] {
+	@include breakpoint($bp, false) {
+		transform: none !important;
+		background-position: center !important;
+		opacity: 1 !important;
+	}
+}
+.square {
+	position: absolute;
+	z-index: 0;
+	&__line {	
+		display: none;
+		.full-slider & {
+			display: inherit;
+		}
+		@include breakpoint($bp) {
+			display: inherit;
+		}
+		background: $brand-main;
+		position: absolute;
+		&--top, &--bottom {
+			width: $f;
+			height: 1px;
+		}
+		&--left, &--right {
+			width: 1px;
+			height: $f;
+		}
+		&--top {
+			left: 0;
+			top: 0;
+		}
+		&--left {
+			left: 0;
+			bottom: 0;
+		}
+		&--right {
+			right: 0;
+			top: 0;
+		}
+		&--bottom {
+			right: 0;
+			bottom: 0;
+		}
+	}
+	&--blog {
+		top: em(80px);
+		bottom: 0;
+		right: em($p*2);
+		left: -2px;
+		opacity: .5;
+	}
+	&--side {
+		top: em($p);
+		bottom: em($p);
+		right: 80%;
+		left: -2px;
+		opacity: .5;
+		[class*="even"] & {
+			right: -2px;
+			left: em($p*-2);
+		}
+	}
+	&--page {
+		top: em($p*4)*-1;
+		bottom: em($p*-8);
+		right: em($p*4)*-1;
+		left: -2px;
+		opacity: .5;
+	}
+	&--instagram {
+		top: em(40px)*-1.5;
+		right: em(50px)*-1;
+		left: 40%;
+		bottom: -160%;
+		opacity: .5;
+	}
+	&--slider {
+		.header__cell--even & {
+			z-index: 20;
+			right: -2px;
+			top: em(40px);
+			bottom: em(40px);
+			left: em(40px*3) * -1 !important;
+		}
+		.header__cell--odd & {
+			top: em($p*2);
+			z-index: 20;
+			bottom: em($p*2);
+			right: calc(#{($f*-1)} - 2px);
+			left: $f - percentage(163px/1366px);
+			opacity: .5;
+		}
+		[class*="even"] & {
+			right: -2px;
+			left: em($p*-2);
+		}
+		.full-slider & {
+			top: em($p*-2);
+			bottom: em(40px*-2);
+			right: em(40px)*-2;
+			left: 80%;
+		}
+		.section__cell--odd & {
+			left: em($p*-4);
+			top: 55%;
+			bottom: em($p*-4);
+			right: em($p*-2.5);
+		}
+		.section__cell--even & {
+			left: 50%;
+			top: 60%;
+			bottom: em($p*-4);
+			right: -55vw;
+		}
+		.section__cell--image & {
+			display: none;
+		}
+	}
+	&--blocks {
+		opacity: .5;
+		.blocks--home & {
+			left: em($p*-2.1);
+			top: 20%;
+			bottom: 20%;
+			right: 37.5%;
+		}
+		.blocks--linee & {
+			left: 12.5%;
+			top: 37.5%;
+			bottom: em($p*-2);
+			right: em($p*-2.1);
+		}
+	}
+	&--filled {
+		background-color: $lighter;
+		top: em(40px) * -1;
+		bottom: em(40px) * -1;
+		[class*="odd"] & {
+			left: 0;
+			right: em(40px);
+		}
+		[class*="even"] & {
+			right: 0;
+			left: em(40px);
+		}
+
+		.section__cell--odd & {
+			right: 0 !important;
+			left: em(40px)  !important;
+		}
+		.section__cell--even & {
+			left: 0 !important;
+			right: em(40px) !important;
+		}
+		.header__cell & {
+			display: none;
+		}
+		.blocks--home & {
+			top: 50%;
+			left: 37.5%;
+			right: em($p*-2.1);
+			bottom: em($p*-3);
+			z-index: 1;
+		}	
+		.blocks--linee & {
+			left: em($p*-4);
+			top: 20%;
+			bottom: 20%;
+			right: 63.5%;
+			z-index: 1;
+		}
+		.related-linee__header & {
+			left: 0;
+			top: em($p*-1);
+			right: em($p*-4);
+			bottom: em($p*-4);
+		}
+	}
+}
+.ps-scrollbar-y-rail {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10px;
+	transition: $speed transform;
+	transform: translate3d(5px, 0, 0);
+	&:hover {
+		transform: translate3d(0, 0, 0);
+	}
+	.ps-scrollbar-y {
+		position: relative;
+		background-color: $brand-main;
+	}
+}
+
+// SLIDER
+
+.slider {
+	@include full($sides : true);
+	&--linee {
+		@include breakpoint($bp, false) {
+			display: none;
+		}
+	}
+	.section__cell & {
+		left: 0;
+		right: 0;
+	}
+	.header__cell--even & {
+		right: 0;
+		left: percentage(163px/1366px) * -1;
+	}
+	.header__cell--odd & {
+		@include breakpoint($bp) {
+			left: 0;
+			right: percentage(163px/1366px) * -1;
+		}
+	}
+	&__item {
+		@include full;
+		// visibility: hidden;
+		// opacity: 0;
+		overflow: hidden;
+		transition: {
+			property: visbility, opacity;
+			duration: $speed;
+		}
+		&--loaded {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+	&__cell {
+		position: relative;
+		overflow: hidden;
+		transition: transform $speed*2 ceaser($easeInQuad);
+		&:not(.slider__cell--s12) {
+			width: $f/2 !important;
+		}
+		&--left {
+			.slider__cover {
+				left: 0;
+			}
+			transform: translate3d(0, $f*-1, 0);
+			.slider__item--active & {
+				animation: slideInLeft $speed*2 forwards ceaser($easeInQuad);
+			}
+		}
+		&--right {
+			transform: translate3d(0, $f, 0);
+			.slider__cover {
+				right: 0;
+				background: {
+					size: cover;
+					repeat: no-repeat;
+					position: center;
+				}
+			}
+			.slider__item--active &  {
+				animation: slideInRight $speed*2 forwards ceaser($easeInQuad);
+			}
+		}
+		.slider__item--active & {
+			transition: none;
+			transform: translate3d(0%, 0%, 0);
+		}
+		&--s12 {
+			transition: transform $speed * 2 ceaser($easeInQuad);
+			.slider__item--active  & {
+				transition: transform $speed * 2 ceaser($easeInQuad);
+			}
+			.slider__cover {
+				@include full;
+				background: {
+					size: cover;
+					repeat: no-repeat;
+					position: center;
+				}
+			}
+			.slider__item--inactive & {
+				transform: translate3d($f*-1, 0, 0);			
+			}
+			.slider__item--reverse & {
+				animation: slideFromRight $speed * 2 ceaser($easeInQuad) forwards;
+			}
+		}
+	}
+	&__cover {
+		position: absolute;
+		width: $f*2;
+		height: $f;
+		top: 0;
+		svg {
+			@include full;
+		}
+	}
+	&__nav {
+		position: absolute;
+		left: em(20px);
+		top: $f/2;
+		transform: translate3d(0, -50%, 0);
+		z-index: 20;
+	}
+	&__page {
+		display: block;
+		width: 7px;
+		height: 7px;
+		margin: 14px 0;
+		border-radius: 7px;
+		background-color: $main-color;
+		transition: {
+			property: transform, background-color;
+			duration: $speed;
+		}
+		&--active {
+			transform: scale(2) translate3d(0, 0, 0);
+			background-color: #3c2313;
+		}
+	}
+	&__dir {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		transform: translate3d(0, 50%, 0);
+		z-index: 100;
+		@include breakpoint($bp) {
+			bottom: em(40px);
+			[class*="even"] &, .section__cell--odd & {
+				right: auto;
+				left: em(40px) * -1;
+			}
+			[class*="odd"] &, .section__cell--even & {
+				right: em(40px) * -1;
+			}
+			.section__cell--odd & {
+				right: auto !important;
+				left: em(40px) * -1 !important;
+			}
+			.section__cell--even & {
+				left: auto !important;
+				right: em(40px) * -1 !important;
+			}
+		}
+		.full-slider & {
+			bottom: em(40px*-2);
+		}
+		[class*=" inactive"], [class*=" inactive"]:hover {
+			background-color: $light !important;
+			cursor: auto!important;		
+		}
+	}
+	.full-slider & {
+		height: calc(100vw - #{em($p*2)});
+		@include breakpoint($bp) {
+			height: calc(100vh - #{em(120px)});
+		}
+		top: em(40px);
+		z-index: 10;
+	}
+}
+
+.full {
+	&-slider {
+		overflow: hidden;
+		position: relative;
+		z-index: 30;
+		padding-top: 100vw;
+		@include breakpoint($bp) {
+			padding-top: calc(100vh - #{em(80px)});
+		}
+		padding-bottom: em(80px);
+		&__content {
+			counter-reset: section;
+			font-style: italic;
+			position: relative;
+			&:after {
+				position: absolute;
+				right: 0;
+				height: $f;
+				width: percentage(400px/1286px);
+				content: '';
+				background: linear-gradient(to right, transparentize($w, 1), $w 50%);
+				z-index: 2;
+			}
+			.full-slider__cell {
+				font-style: italic;
+				padding: em(20px) percentage(250px/1286px) em(20px) 0;
+				&:before {
+					counter-increment: section;
+	    			content: counter(section) ". ";
+				}
+			}
+		}
+	}
+}
+
+.carousel {
+	@include grow('lg');
+	&__item {
+		flex: 0 0 auto;
+		display: flex;
+		align-items: center;
+	}
+	&__nav {
+		position: relative;
+		z-index: 1;
+		transform: translate3d(0, 50%, 0);
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+
+
+.icon-arrow-left, .icon-arrow-right {
+	display: inline-flex;
+	width: em(40px, 8px);
+	height: em(40px, 8px);
+	align-items: center;
+	font-size: 8px;
+	justify-content: center;
+	transition: background-color $speed;
+	.carousel__nav & {
+		color: $dark-color;
+		background-color: $brand-main;
+		&:hover {
+			background-color: $dark-color;
+			color: $w;
+		}
+	}
+	.slider__dir & {
+		color: $w;
+		background-color: $dark-color;
+		&:hover {
+			background-color: $brand-main;
+		}
+	}
+}
+
+.instagram {
+	@include grow('lg');
+	position: relative;
+	overflow: hidden;
+	&__container {
+		position: relative;
+		@include breakpoint($bp){
+			$m: 966/1366;
+			width: percentage(966px/1366px);
+			padding-top: percentage(623px/966px)*$m;
+		}
+	}
+	&__items {
+		@include breakpoint($bp){
+			@include full;
+			overflow: visible !important;
+		}
+	}
+	&__header {
+		@include grow('lg');
+		@include breakpoint($bp){
+			top: em(120px);
+			position: absolute;
+			@include normalize_sides;
+			text-align: right;
+		}
+	}
+	&__title {
+		a {
+			color: $dark-color;
+			font-weight: 400;
+			&:hover {
+				color: $brand-main;
+			}
+		}
+	}
+	&__name {
+		font-size: em(45px, 18px);
+		@include breakpoint($bp) {
+			font-size: em(45px, 20px);
+		}
+	}
+	&__cell {
+		@include breakpoint($bp){
+			position: absolute;
+			left: 0;
+			top: 0;
+			&[data-item="0"] {
+				transform: translate3d(em(10px)*-1, percentage(101px/294px), 0);
+			}
+			&[data-item="1"] {
+				transform: translate3d($f, 0, 0);
+			}
+			&[data-item="2"] {
+				transform: translate3d($f*2, percentage(232px/294px), 0);
+			}
+			&[data-item="3"] {
+				margin-top: em(20px);
+				transform: translate3d($f, $f, 0);
+			}
+		}
+	}
+	&__figure {
+		margin: em(10px);
+		padding-top: $f;
+		position: relative;
+		overflow: hidden;
+		img {
+			@include full;
+			transition: transform $speed;
+		}
+		&:hover {
+			img {
+				transform: scale(1.25) translateZ(0);
+			}
+		}
+	}
+	&__follow {
+		@include grow('small', 'top');
+		display: inline-block;
+		padding-left: em(50px, 24px);
+	}
+}
+
+@keyframes slideInLeft {
+	0% {
+		transform: translate3d(0, $f, 0);
+	}
+	100% {
+		transform: translate3d(0, 0%, 0);
+	}
+}
+
+@keyframes slideFromRight {
+	0% {
+		transform: translate3d($f, 0%, 0);
+	}
+	100% {
+		transform: translate3d(0%, 0%, 0);
+	}
+}
+
+
+@keyframes slideInRight {
+	0% {
+		transform: translate3d(0, $f*-1, 0);
+	}
+	100% {
+		transform: translate3d(0, 0%, 0);
+	}
+}

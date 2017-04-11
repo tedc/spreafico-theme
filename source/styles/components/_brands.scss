@@ -1,0 +1,33 @@
+.brands {
+	overflow: visible !important;
+	position: relative;
+	&:before {
+		@include full;
+		content: '';
+		background-color: $b;
+		opacity: .7;
+	}
+	background: {
+		size: cover;
+		repeat: no-repeat;
+		position: center;
+	}
+	&__title {
+		strong {
+			color: $light;
+		}
+	}
+	&__cell {
+		position: relative;
+		z-index: 1;
+		@include grow('lg');
+		&--header {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@include breakpoint($bp) {
+				justify-content: flex-start;
+			}
+		}
+	}
+}

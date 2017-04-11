@@ -1,0 +1,45 @@
+.header {
+	@include grow('md');
+	overflow: hidden;
+	min-height: mh($p*8);
+	&__cell {
+		position: relative;
+		z-index: 2;
+		background: {
+			position: center;
+			size: cover;
+			repeat: no-repeat;
+		}
+		.wp-post-image.size-full {
+			width: $f !important;
+			height: auto !important;
+			@include breakpoint($bp) {
+				display: none;
+			}
+		}
+		@include grow('lg');
+		&--content {
+			display: flex;
+			align-items: center;
+			align-content: center;
+			flex-wrap: wrap;
+			&.header__cell--even {
+				@include breakpoint($bp) {
+					padding-left: percentage(203px/1366px)/2;
+			
+				}
+			}
+		}
+		&--slider {
+			height: 100vw;
+			@include breakpoint($bp) {
+				height: auto;
+			}
+			z-index: 20;
+		}
+	}
+	p {
+		padding-top: em(40px);
+		width: $f;
+	}
+}

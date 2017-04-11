@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "main.js": {
+      "files": [
+        "scripts/main.js"
+      ],
+      "main": true
+    },
+    "lib.js": {
+      "files": [
+        "scripts/modernizr/modernizr.build.js",
+        "../bower_components/gsap/src/uncompressed/TweenMax.js",
+        "../bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin.js",
+        "../bower_components/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"
+      ],
+      "bower" : ["fastclick", "scrollmagic", "perfect-scrollbar"]
+    },
+    "main.css": {
+      "files": [
+        "styles/main.scss"
+      ],
+      "bower" : ["normalize.css"],
+      "main": true
+    }
+  },
+  "config": {
+    "devUrl": "http://spreafico.dnative.com"
+  },
+  "paths": {
+    "dist": "assets/",
+    "source": "source/"
+  }
+}
