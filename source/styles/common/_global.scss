@@ -197,16 +197,40 @@
 		@each $side in $sides {
 			@if $side == 'all' {
 				&--grow#{$s} {
-		            padding: {
-		                top: em($p * $row);
-		                bottom: em($p * $row);
-		            }
+                    @if($s == '-lg') {
+                        padding: {
+                            top: em($p * $row) / 2;
+                            bottom: em($p * $row) / 2;
+                        }
+                        @include breakpoint($bp) {
+                            padding: {
+                                top: em($p * $row);
+                                bottom: em($p * $row);
+                            }
+                        }
+                    } @else {
+                        padding: {
+                            top: em($p * $row);
+                            bottom: em($p * $row);
+                        }
+                    }
 		        }
 			} @else {
 				&--grow#{$s}-#{$side} {
-		            padding: {
-		                #{$side}: em($p * $row);
-		            }
+                    @if($s == '-lg') {
+                        padding: {
+    		                #{$side}: em($p * $row) / 2;
+    		            }
+                        @include breakpoint($bp) {
+                            padding: {
+                                #{$side}: em($p * $row);
+                            }
+                        }
+                    } @else {
+                        padding: {
+                        #{$side}: em($p * $row);
+                    }
+                    }
 		        }
 			}
 		}
