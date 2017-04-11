@@ -7,6 +7,8 @@
 	transition: color $speed;
 	font-family: $main-font;
 	padding: em(20px);
+	border-radius: 0;
+	box-shadow: none;
 	@include breakpoint($bp) {
 		padding: 0 em(20px);
 	}
