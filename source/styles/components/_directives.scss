@@ -249,6 +249,13 @@
 		&:not(.slider__cell--s12) {
 			width: $f/2 !important;
 		}
+		.slide__cover {
+			background: {
+				size: cover;
+				repeat: no-repeat;
+				position: center;
+			}
+		}
 		&--left {
 			.slider__cover {
 				left: 0;
@@ -262,11 +269,6 @@
 			transform: translate3d(0, $f, 0);
 			.slider__cover {
 				right: 0;
-				background: {
-					size: cover;
-					repeat: no-repeat;
-					position: center;
-				}
 			}
 			.slider__item--active &  {
 				animation: slideInRight $speed*2 forwards ceaser($easeInQuad);
@@ -283,11 +285,6 @@
 			}
 			.slider__cover {
 				@include full;
-				background: {
-					size: cover;
-					repeat: no-repeat;
-					position: center;
-				}
 			}
 			.slider__item--inactive & {
 				transform: translate3d($f*-1, 0, 0);			
