@@ -103,3 +103,9 @@
 [class*="border-top"] {
     border-top: 1px solid $brand-main;
 }
+
+[class*="--grow-lg"] + [class*="--grow-lg"] {
+    @include breakpoint($bp, false) {
+        padding-top: 0;
+    }
+}
