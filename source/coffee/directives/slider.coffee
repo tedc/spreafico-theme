@@ -30,7 +30,6 @@ module.exports = ($templateCache) ->
 						return
 					, 0
 					return
-			console.log slides
 			$scope.isLoaded = (i)->
 				return $scope.loaded[i]
 			$scope.slideTo = (c)->

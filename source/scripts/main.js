@@ -1,4 +1,267 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*
+ * angular-lazy-load
+ *
+ * Copyright(c) 2014 Paweł Wszoła <wszola.p@gmail.com>
+ * MIT Licensed
+ *
+ */
+
+/**
+ * @author Paweł Wszoła (wszola.p@gmail.com)
+ *
+ */
+
+angular.module('angularLazyImg', []);
+
+angular.module('angularLazyImg').factory('LazyImgMagic', [
+  '$window', '$rootScope', 'lazyImgConfig', 'lazyImgHelpers',
+  function($window, $rootScope, lazyImgConfig, lazyImgHelpers){
+    'use strict';
+
+    var winDimensions, $win, images, isListening, options;
+    var checkImagesT, saveWinOffsetT, containers;
+
+    images = [];
+    isListening = false;
+    options = lazyImgConfig.getOptions();
+    $win = angular.element($window);
+    winDimensions = lazyImgHelpers.getWinDimensions();
+    saveWinOffsetT = lazyImgHelpers.throttle(function(){
+      winDimensions = lazyImgHelpers.getWinDimensions();
+    }, 60);
+    containers = [options.container || $win];
+
+    function checkImages(){
+      for(var i = images.length - 1; i >= 0; i--){
+        var image = images[i];
+        if(image && lazyImgHelpers.isElementInView(image.$elem[0], options.offset, winDimensions)){
+          loadImage(image);
+          images.splice(i, 1);
+        }
+      }
+      if(images.length === 0){ stopListening(); }
+    }
+
+    checkImagesT = lazyImgHelpers.throttle(checkImages, 30);
+
+    function listen(param){
+      containers.forEach(function (container) {
+        container[param]('scroll', checkImagesT);
+        container[param]('touchmove', checkImagesT);
+      });
+      $win[param]('resize', checkImagesT);
+      $win[param]('resize', saveWinOffsetT);
+    }
+
+    function startListening(){
+      isListening = true;
+      setTimeout(function(){
+        checkImages();
+        listen('on');
+      }, 1);
+    }
+
+    function stopListening(){
+      isListening = false;
+      listen('off');
+    }
+
+    function removeImage(image){
+      var index = images.indexOf(image);
+      if(index !== -1) {
+        images.splice(index, 1);
+      }
+    }
+
+    function loadImage(photo){
+      var img = new Image();
+      img.onerror = function(){
+        if(options.errorClass){
+          photo.$elem.addClass(options.errorClass);
+        }
+        $rootScope.$emit('lazyImg:error', photo);
+        options.onError(photo);
+      };
+      img.onload = function(){
+        setPhotoSrc(photo.$elem, photo.src);
+        if(options.successClass){
+          photo.$elem.addClass(options.successClass);
+        }
+        $rootScope.$emit('lazyImg:success', photo);
+        options.onSuccess(photo);
+      };
+      img.src = photo.src;
+    }
+
+    function setPhotoSrc($elem, src){
+      if ($elem[0].nodeName.toLowerCase() === 'img') {
+        $elem[0].src = src;
+      } else {
+        $elem.css('background-image', 'url("' + src + '")');
+      }
+    }
+
+    // PHOTO
+    function Photo($elem){
+      this.$elem = $elem;
+    }
+
+    Photo.prototype.setSource = function(source){
+      this.src = source;
+      images.unshift(this);
+      if (!isListening){ startListening(); }
+    };
+
+    Photo.prototype.removeImage = function(){
+      removeImage(this);
+      if(images.length === 0){ stopListening(); }
+    };
+
+    Photo.prototype.checkImages = function(){
+      checkImages();
+    };
+
+    Photo.addContainer = function (container) {
+      stopListening();
+      containers.push(container);
+      startListening();
+    };
+
+    Photo.removeContainer = function (container) {
+      stopListening();
+      containers.splice(containers.indexOf(container), 1);
+      startListening();
+    };
+
+    return Photo;
+
+  }
+]);
+
+angular.module('angularLazyImg').provider('lazyImgConfig', function() {
+  'use strict';
+
+  this.options = {
+    offset       : 100,
+    errorClass   : null,
+    successClass : null,
+    onError      : function(){},
+    onSuccess    : function(){}
+  };
+
+  this.$get = function() {
+    var options = this.options;
+    return {
+      getOptions: function() {
+        return options;
+      }
+    };
+  };
+
+  this.setOptions = function(options) {
+    angular.extend(this.options, options);
+  };
+});
+angular.module('angularLazyImg').factory('lazyImgHelpers', [
+  '$window', function($window){
+    'use strict';
+
+    function getWinDimensions(){
+      return {
+        height: $window.innerHeight,
+        width: $window.innerWidth
+      };
+    }
+
+    function isElementInView(elem, offset, winDimensions) {
+      var rect = elem.getBoundingClientRect();
+      var bottomline = winDimensions.height + offset;
+      return (
+       rect.left >= 0 && rect.right <= winDimensions.width + offset && (
+         rect.top >= 0 && rect.top <= bottomline ||
+         rect.bottom <= bottomline && rect.bottom >= 0 - offset
+        )
+      );
+    }
+
+    // http://remysharp.com/2010/07/21/throttling-function-calls/
+    function throttle(fn, threshhold, scope) {
+      var last, deferTimer;
+      return function () {
+        var context = scope || this;
+        var now = +new Date(),
+            args = arguments;
+        if (last && now < last + threshhold) {
+          clearTimeout(deferTimer);
+          deferTimer = setTimeout(function () {
+            last = now;
+            fn.apply(context, args);
+          }, threshhold);
+        } else {
+          last = now;
+          fn.apply(context, args);
+        }
+      };
+    }
+
+    return {
+      isElementInView: isElementInView,
+      getWinDimensions: getWinDimensions,
+      throttle: throttle
+    };
+
+  }
+]);
+angular.module('angularLazyImg')
+  .directive('lazyImg', [
+    '$rootScope', 'LazyImgMagic', function ($rootScope, LazyImgMagic) {
+      'use strict';
+
+      function link(scope, element, attributes) {
+        var lazyImage = new LazyImgMagic(element);
+        attributes.$observe('lazyImg', function (newSource) {
+          if (newSource) {
+            // in angular 1.3 it might be nice to remove observer here
+            lazyImage.setSource(newSource);
+          }
+        });
+        scope.$on('$destroy', function () {
+          lazyImage.removeImage();
+        });
+        $rootScope.$on('lazyImg.runCheck', function () {
+          lazyImage.checkImages();
+        });
+        $rootScope.$on('lazyImg:refresh', function () {
+          lazyImage.checkImages();
+        });
+      }
+
+      return {
+        link: link,
+        restrict: 'A'
+      };
+    }
+  ])
+  .directive('lazyImgContainer', [
+    'LazyImgMagic', function (LazyImgMagic) {
+      'use strict';
+
+      function link(scope, element) {
+        LazyImgMagic.addContainer(element);
+        scope.$on('$destroy', function () {
+          LazyImgMagic.removeContainer(element);
+        });
+      }
+
+      return {
+        link: link,
+        restrict: 'A'
+      };
+    }
+  ]);
+
+},{}],2:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.3
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -850,11 +1113,11 @@ angular.module('ngResource', ['ng']).
 
 })(window, window.angular);
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 require('./angular-resource');
 module.exports = 'ngResource';
 
-},{"./angular-resource":1}],3:[function(require,module,exports){
+},{"./angular-resource":2}],4:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.3
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -1612,11 +1875,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 require('./angular-sanitize');
 module.exports = 'ngSanitize';
 
-},{"./angular-sanitize":3}],5:[function(require,module,exports){
+},{"./angular-sanitize":4}],6:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.3
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -2367,11 +2630,11 @@ makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
 
 })(window, window.angular);
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 require('./angular-touch');
 module.exports = 'ngTouch';
 
-},{"./angular-touch":5}],7:[function(require,module,exports){
+},{"./angular-touch":6}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.6.3
  * (c) 2010-2017 Google, Inc. http://angularjs.org
@@ -35717,11 +35980,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":7}],9:[function(require,module,exports){
+},{"./angular":8}],10:[function(require,module,exports){
 var em, mapInit;
 
 em = function(val) {
@@ -35928,7 +36191,7 @@ module.exports = function(id, lat, scope, compile) {
 };
 
 
-},{"./marker.coffee":10}],10:[function(require,module,exports){
+},{"./marker.coffee":11}],11:[function(require,module,exports){
 var Marker;
 
 Marker = (function() {
@@ -35981,7 +36244,7 @@ Marker = (function() {
 module.exports = Marker;
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = function($timeout) {
   var blocks;
   return blocks = {
@@ -36015,7 +36278,7 @@ module.exports = function($timeout) {
 };
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var em;
 
 em = function(val) {
@@ -36091,7 +36354,7 @@ module.exports = function() {
 };
 
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = function($window) {
   var footer;
   return footer = {
@@ -36110,7 +36373,7 @@ module.exports = function($window) {
 };
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = function() {
   var form;
   return form = {
@@ -36155,7 +36418,7 @@ module.exports = function() {
 };
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var sprfc;
 
 sprfc = angular.module('sprfc');
@@ -36163,7 +36426,7 @@ sprfc = angular.module('sprfc');
 sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', ["$templateCache", require('./slider.coffee')]).directive('ngCarousel', ["$templateCache", require('./carousel.coffee')]).directive('ngSm', ["$rootScope", "$timeout", require('./sm.coffee')]).directive('ngFooter', ["$window", require('./footer.coffee')]).directive('ngForm', [require('./form.coffee')]).directive('ngInstagram', [require('./instagram.coffee')]).directive('ngScroll', [require('./scroll.coffee')]).directive('ngMap', ["$timeout", "loadGoogleMapAPI", "$compile", require('./map.coffee')]).directive('ngBlocks', ["$timeout", require('./blocks.coffee')]);
 
 
-},{"./blocks.coffee":11,"./carousel.coffee":12,"./footer.coffee":13,"./form.coffee":14,"./instagram.coffee":16,"./map.coffee":17,"./scroll.coffee":18,"./slider.coffee":19,"./sm.coffee":20,"./square.coffee":21}],16:[function(require,module,exports){
+},{"./blocks.coffee":12,"./carousel.coffee":13,"./footer.coffee":14,"./form.coffee":15,"./instagram.coffee":17,"./map.coffee":18,"./scroll.coffee":19,"./slider.coffee":20,"./sm.coffee":21,"./square.coffee":22}],17:[function(require,module,exports){
 module.exports = function() {
   var instagram;
   return instagram = {
@@ -36202,7 +36465,7 @@ module.exports = function() {
 };
 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var mapInit;
 
 mapInit = require('../core/map.coffee');
@@ -36230,7 +36493,7 @@ module.exports = function($timeout, loadGoogleMapAPI, $compile) {
 };
 
 
-},{"../core/map.coffee":9}],18:[function(require,module,exports){
+},{"../core/map.coffee":10}],19:[function(require,module,exports){
 module.exports = function($window) {
   var ps;
   return ps = {
@@ -36266,7 +36529,7 @@ module.exports = function($window) {
 };
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = function($templateCache) {
   var slider;
   return slider = {
@@ -36337,7 +36600,7 @@ module.exports = function($templateCache) {
 };
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = function($rootScope, $timeout) {
   var parseDuration, scrollmagic;
   parseDuration = function(options, element) {
@@ -36406,7 +36669,7 @@ module.exports = function($rootScope, $timeout) {
 };
 
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = function() {
   var square;
   return square = {
@@ -36469,7 +36732,7 @@ module.exports = function() {
 };
 
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var angular, sprfc;
 
 window.controller = new ScrollMagic.Controller();
@@ -36484,7 +36747,9 @@ require('angular-sanitize');
 
 require('angular-touch');
 
-sprfc = angular.module('sprfc', ['ngTouch', 'ngSanitize', 'ngResource']);
+require('../../node_modules/angular-lazy-img/dist/angular-lazy-img');
+
+sprfc = angular.module('sprfc', ['ngTouch', 'ngSanitize', 'ngResource', 'angularLazyImg']);
 
 require('./directives/index.coffee');
 
@@ -36493,7 +36758,7 @@ require('./models/index.coffee');
 require('./resources/index.coffee');
 
 
-},{"./directives/index.coffee":15,"./models/index.coffee":23,"./resources/index.coffee":26,"angular":8,"angular-resource":2,"angular-sanitize":4,"angular-touch":6}],23:[function(require,module,exports){
+},{"../../node_modules/angular-lazy-img/dist/angular-lazy-img":1,"./directives/index.coffee":16,"./models/index.coffee":24,"./resources/index.coffee":27,"angular":9,"angular-resource":3,"angular-sanitize":5,"angular-touch":7}],24:[function(require,module,exports){
 var sprfc;
 
 sprfc = angular.module('sprfc');
@@ -36501,18 +36766,18 @@ sprfc = angular.module('sprfc');
 sprfc.run(["$templateCache", require('./templates.min')]);
 
 
-},{"./templates.min":24}],24:[function(require,module,exports){
+},{"./templates.min":25}],25:[function(require,module,exports){
 "use strict";
 
 module.exports = function ($templateCache) {
   $templateCache.put("" + assets + "tpl/carousel.tpl.html", "<div class=\"carousel carousel--grid carousel--grow-lg\"><div class=\"carousel__item\" ng-class=\"\'carousel__cell--s{{size}}\'\" ng-repeat=\"item in items\"><img ng-src=\"{{item.url}}\"></div></div><div class=\"carousel__nav\"><div class=\"icon-arrow-left\" ng-click=\"move(false)\"></div><div class=\"icon-arrow-right\" ng-click=\"move(true)\"></div></div>");
   $templateCache.put("" + assets + "tpl/instagram.tpl.html", "<header class=\"instagram__header instagram__header--grow-lg\" ng-square=\"{kind:\'instagram\'}\"><h4 class=\"instagram__title\"><a ng-href=\"http://instagram.com/{{username}}\" ng-attr-target=\"_blank\"><span class=\"instagram__name\" ng-bind-html=\"\'@\' + username\"></span><br><span class=\"instagram__follow instagram__follow--grow-top instagram__follow--upper\" ng-bind-html=\"follow\"></span></a></h4></header><div class=\"instagram__container\"><ul class=\"instagram__items instagram--grid\"><div class=\"instagram__cell instagram__cell--s4\" ng-repeat=\"item in items\" data-item=\"{{$index}}\"><figure class=\"instagram__figure\" ng-sm=\"scrollmagic($index)\"><a ng-href=\"{{item.link}}\" target=\"_blank\"><img ng-src=\"{{resize(item.images.thumbnail.url)}}\"></a></figure></div></ul></div>");
   $templateCache.put("" + assets + "tpl/slider-2.tpl.html", "<div class=\"slider\" ng-class=\"{\'slider--linee\' : kind==\'linee\'}\" ng-swipe-left=\"move(true)\" ng-swipe-right=\"move(false)\"><div class=\"slider__item slider__item--grid-nowrap\" ng-repeat=\"slide in slides\" data-slide=\"{{$index}}\" ng-attr-style=\"z-index:{{slides.length - $index}}\" ng-class=\"{\'slider__item--inactive\' : current &gt; $index, \'slider__item--active\': current == $index, \'slider__item--loaded\' : isLoaded($index)}\"><div class=\"slider__cell slider__cell--left\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\"><svg preserveAspectRatio=\"xMidYMid slice\" viewBox=\"0 0 {{slide.width}} {{slide.height}}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs><filter id=\"filter_{{$index}}\" color-interpolation-filters=\"sRGB\"><feColorMatrix type=\"matrix\" values=\"0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0\" result=\"gray\"></feColorMatrix><feComponentTransfer color-interpolation-filters=\"sRGB\"><feFuncR type=\"table\" tableValues=\"1 0.9392156862745098 0.8784313725490196 0.7607843137254902\"></feFuncR><feFuncG type=\"table\" tableValues=\"1 0.9254901960784314 0.8509803921568627 0.7098039215686275\"></feFuncG><feFuncB type=\"table\" tableValues=\"1 0.8980392156862745 0.796078431372549 0.6078431372549019\"></feFuncB><feFuncA type=\"table\" tableValues=\"1 1 1 1\"></feFuncA></feComponentTransfer></filter></defs><image ng-attr-xlink:href=\"{{slide.url}}\" ng-attr-width=\"{{slide.width}}\" ng-attr-height=\"{{slide.height}}\" filter=\"url(#filter_{{$index}})\" xlink:href=\"\" x=\"0\" y=\"0\"></image></svg></div></div><div class=\"slider__cell slider__cell--right\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div><div class=\"slider__cell slider__cell--s12\" ng-if=\"kind!=\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div></div><div class=\"slider__nav slider__nav--shrink\" ng-if=\"kind == \'linee\'\"><div class=\"slider__page\" ng-repeat=\"slide in slides\" ng-click=\"slideTo($index)\" ng-class=\"{\'slider__page--active\': current == $index}\"></div></div><div class=\"slider__quare\" ng-square=\"{kind : \'slider\'}\" ng-if=\"kind!=\'linee\'\"></div><div class=\"slider__dir\" ng-if=\"kind!=\'linee\'\"><i class=\"icon-arrow-left\" ng-click=\"move(false)\" ng-class=\"{\'inactive\' : !isPrev}\"></i><i class=\"icon-arrow-right\" ng-click=\"move(true)\" ng-class=\"{\'inactive\' : !isNext}\"></i></div></div><div class=\"full-slider__content slider__content--grid-nowrap\" ng-if=\"kind==\'full\'\"><div class=\"full-slider__cell\" ng-repeat=\"item in slides\" ng-bind-html=\"item.alt\"></div></div><div class=\"linee__container\" ng-if=\"kind == \'linee\'\"><h6 class=\"linee__title linee__title--smaller linee__title--smaller-upper\" ng-bind-html=\"title\"></h6><div class=\"linee__content linee__content--grid-nowrap\"><div class=\"linee__cell linee__cell--slide\" ng-repeat=\"slide in slides\"><figure class=\"linee__cover\"><img ng-src=\"{{slide.url}}\" ng-attr-alt=\"{{slide.title}}\"></figure><a class=\"linee__button linee__button--show\" ng-href=\"{{slide.link}}\" ng-attr-data-more=\"{{show}}\" ng-bind-html=\"slide.title\"></a></div></div><i class=\"icon-arrow-big\" ng-click=\"move(true)\"></i></div>");
-  $templateCache.put("" + assets + "tpl/slider.tpl.html", "<div class=\"slider\" ng-class=\"{\'slider--linee\' : kind==\'linee\'}\" ng-swipe-left=\"move(true)\" ng-swipe-right=\"move(false)\"><div class=\"slider__item slider__item--grid-nowrap\" ng-repeat=\"slide in slides\" data-slide=\"{{$index}}\" ng-attr-style=\"z-index:{{slides.length - $index}}\" ng-class=\"{\'slider__item--inactive\' : current &gt; $index, \'slider__item--active\': current == $index, \'slider__item--loaded\' : isLoaded($index)}\"><div class=\"slider__cell slider__cell--left\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\"><svg preserveAspectRatio=\"xMidYMid slice\" viewBox=\"0 0 {{slide.width}} {{slide.height}}\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs><filter id=\"filter_{{$index}}\" color-interpolation-filters=\"sRGB\"><feColorMatrix type=\"matrix\" values=\"0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0\" result=\"gray\"></feColorMatrix><feComponentTransfer color-interpolation-filters=\"sRGB\"><feFuncR type=\"table\" tableValues=\"1 0.9392156862745098 0.8784313725490196 0.7607843137254902\"></feFuncR><feFuncG type=\"table\" tableValues=\"1 0.9254901960784314 0.8509803921568627 0.7098039215686275\"></feFuncG><feFuncB type=\"table\" tableValues=\"1 0.8980392156862745 0.796078431372549 0.6078431372549019\"></feFuncB><feFuncA type=\"table\" tableValues=\"1 1 1 1\"></feFuncA></feComponentTransfer></filter></defs><image ng-attr-xlink:href=\"{{slide.url}}\" ng-attr-width=\"{{slide.width}}\" ng-attr-height=\"{{slide.height}}\" filter=\"url(#filter_{{$index}})\" xlink:href=\"\" x=\"0\" y=\"0\"></image></svg></div></div><div class=\"slider__cell slider__cell--right\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div><div class=\"slider__cell slider__cell--s12\" ng-if=\"kind!=\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div></div><div class=\"slider__nav slider__nav--shrink\" ng-if=\"kind == \'linee\'\"><div class=\"slider__page\" ng-repeat=\"slide in slides\" ng-click=\"slideTo($index)\" ng-class=\"{\'slider__page--active\': current == $index}\"></div></div><div class=\"slider__quare\" ng-square=\"{kind : \'slider\'}\" ng-if=\"kind!=\'linee\'\"></div><div class=\"slider__dir\" ng-if=\"kind!=\'linee\'\"><i class=\"icon-arrow-left\" ng-click=\"move(false)\" ng-class=\"{\'inactive\' : !isPrev}\"></i><i class=\"icon-arrow-right\" ng-click=\"move(true)\" ng-class=\"{\'inactive\' : !isNext}\"></i></div></div><div class=\"full-slider__content slider__content--grid-nowrap\" ng-if=\"kind==\'full\'\"><div class=\"full-slider__cell\" ng-repeat=\"item in slides\" ng-bind-html=\"item.alt\"></div></div><div class=\"linee__container\" ng-if=\"kind == \'linee\'\"><h6 class=\"linee__title linee__title--smaller linee__title--smaller-upper\" ng-bind-html=\"title\"></h6><div class=\"linee__content linee__content--grid-nowrap\"><div class=\"linee__cell linee__cell--slide\" ng-repeat=\"slide in slides\"><figure class=\"linee__cover\"><img ng-src=\"{{slide.url}}\" ng-attr-alt=\"{{slide.title}}\"></figure><a class=\"linee__button linee__button--show\" ng-href=\"{{slide.link}}\" ng-attr-data-more=\"{{show}}\" ng-bind-html=\"slide.title\"></a></div></div><i class=\"icon-arrow-big\" ng-click=\"move(true)\"></i></div>");
+  $templateCache.put("" + assets + "tpl/slider.tpl.html", "<div class=\"slider\" ng-class=\"{\'slider--linee\' : kind==\'linee\'}\" ng-swipe-left=\"move(true)\" ng-swipe-right=\"move(false)\"><div class=\"slider__item slider__item--grid-nowrap\" ng-repeat=\"slide in slides\" data-slide=\"{{$index}}\" ng-attr-style=\"z-index:{{slides.length - $index}}\" ng-class=\"{\'slider__item--inactive\' : current &gt; $index, \'slider__item--active\': current == $index, \'slider__item--loaded\' : isLoaded($index)}\" lazy-img=\"slide.url\"><div class=\"slider__cell slider__cell--left\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.sepia}})\"></div></div><div class=\"slider__cell slider__cell--right\" ng-if=\"kind==\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div><div class=\"slider__cell slider__cell--s12\" ng-if=\"kind!=\'linee\'\"><div class=\"slider__cover\" ng-attr-style=\"background-image:url({{slide.url}})\"></div></div></div><div class=\"slider__nav slider__nav--shrink\" ng-if=\"kind == \'linee\'\"><div class=\"slider__page\" ng-repeat=\"slide in slides\" ng-click=\"slideTo($index)\" ng-class=\"{\'slider__page--active\': current == $index}\"></div></div><div class=\"slider__quare\" ng-square=\"{kind : \'slider\'}\" ng-if=\"kind!=\'linee\'\"></div><div class=\"slider__dir\" ng-if=\"kind!=\'linee\'\"><i class=\"icon-arrow-left\" ng-click=\"move(false)\" ng-class=\"{\'inactive\' : !isPrev}\"></i><i class=\"icon-arrow-right\" ng-click=\"move(true)\" ng-class=\"{\'inactive\' : !isNext}\"></i></div></div><div class=\"full-slider__content slider__content--grid-nowrap\" ng-if=\"kind==\'full\'\"><div class=\"full-slider__cell\" ng-repeat=\"item in slides\" ng-bind-html=\"item.alt\"></div></div><div class=\"linee__container\" ng-if=\"kind == \'linee\'\"><h6 class=\"linee__title linee__title--smaller linee__title--smaller-upper\" ng-bind-html=\"title\"></h6><div class=\"linee__content linee__content--grid-nowrap\"><div class=\"linee__cell linee__cell--slide\" ng-repeat=\"slide in slides\"><figure class=\"linee__cover\"><img ng-src=\"{{slide.url}}\" ng-attr-alt=\"{{slide.title}}\"></figure><a class=\"linee__button linee__button--show\" ng-href=\"{{slide.link}}\" ng-attr-data-more=\"{{show}}\" ng-bind-html=\"slide.title\"></a></div></div><i class=\"icon-arrow-big\" ng-click=\"move(true)\"></i></div>");
   $templateCache.put("" + assets + "tpl/svg.tpl.html", "<defs><filter id=\"filter_{{$index}}\" color-interpolation-filters=\"sRGB\"><fecolormatrix type=\"matrix\" values=\"0.39 0.769 0.189 0  0 0.349 0.686 0.168 0  0  0.272 0.534 0.131 0  0 0  0 0 1  0\"></fecolormatrix></filter></defs><image ng-attr-xlink:href=\"{{slide.url}}\" ng-attr-width=\"{{slide.width}}\" ng-attr-height=\"{{slide.height}}\" filter=\"url(#filter_{{$index}})\" xlink:href=\"\" x=\"0\" y=\"0\"></image>");
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = function() {
   var serializeData, transformRequest;
   serializeData = function(data) {
@@ -36549,7 +36814,7 @@ module.exports = function() {
 };
 
 
-},{"angular":8}],26:[function(require,module,exports){
+},{"angular":9}],27:[function(require,module,exports){
 var sprfc;
 
 sprfc = angular.module('sprfc');
@@ -36702,7 +36967,7 @@ sprfc.service('loadGoogleMapAPI', [
 ]).factory('transformRequestAsFormPost', [require('./form.coffee')]).factory('InstagramPosts', ["$resource", "cacheService", require('./instagram.coffee')]);
 
 
-},{"./form.coffee":25,"./instagram.coffee":27}],27:[function(require,module,exports){
+},{"./form.coffee":26,"./instagram.coffee":28}],28:[function(require,module,exports){
 module.exports = function($resource, cacheService) {
   var getResults, source;
   self.url = "/wp-json/api/v1/instagram";
@@ -36743,4 +37008,4 @@ module.exports = function($resource, cacheService) {
 };
 
 
-},{}]},{},[22]);
+},{}]},{},[23]);

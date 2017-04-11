@@ -4,7 +4,7 @@ angular = require 'angular'
 require 'angular-resource'
 require 'angular-sanitize'
 require 'angular-touch'
-require 'angular-lazy-img'
+require '../../node_modules/angular-lazy-img/dist/angular-lazy-img'
 
 sprfc = angular.module 'sprfc', ['ngTouch', 'ngSanitize', 'ngResource', 'angularLazyImg']
 require './directives/index.coffee'
