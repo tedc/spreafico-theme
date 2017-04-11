@@ -1,4 +1,4 @@
-<nav class="cat cat--shrink cat--grow"<?php scrollmagic('"class":"cat--inview","triggerElement":".main","triggerHook":"onLeave","offset":100'); ?> ng-footer>
+<nav class="cat cat--shrink cat--grow" ng-footer>
 	<h4 class="cat__title cat__title--upper" ng-click="isPopup=true"><?php _e('Richiedi un preventivo', 'sprfc'); ?></h4>
 	<a href="tel:<?php echo str_replace('.','',get_field('phone', 'options')); ?>"><?php the_field('phone', 'options'); ?></a>
 </nav>
