@@ -20,5 +20,5 @@
 		.linee__cell.linee__cell--slide(ng-repeat="slide in slides")
 			figure.linee__cover
 				img(ng-src="{{slide.url}}" ng-attr-alt="{{slide.title}}")
-			a.linee__button.linee__button--show(ng-href="{{slide.link}}" ng-attr-data-more="{{show}}" ng-bind-html="slide.title")
+			a.linee__button.linee__button--showbtn(ng-href="{{slide.link}}" ng-attr-data-more="{{show}}" ng-bind-html="slide.title")
 	i.icon-arrow-big(ng-click="move(true)")
