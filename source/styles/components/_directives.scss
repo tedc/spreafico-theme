@@ -301,6 +301,7 @@
 		width: $f*2;
 		height: $f;
 		top: 0;
+		background-size: cover;
 		svg {
 			@include full;
 		}
