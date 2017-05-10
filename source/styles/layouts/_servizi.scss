@@ -10,7 +10,7 @@
 		}
 		@include breakpoint($bp) {
 			text-align: left;
-			border: em(40px) solid $lighter;	
+			border: em($p) solid $lighter;	
 			margin: {
 				top: em($p*2);
 				left: em(10px);
@@ -32,7 +32,7 @@
 	margin: 0 auto;
 	padding: 0;	
 	path, rect, polygon, polyline, circle {
-		fill: #f7941d !important;
+		fill: $main-color !important;
 	}
 	@include grow('md', 'bottom');
 	@include breakpoint($bp) {
