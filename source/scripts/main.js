@@ -36344,9 +36344,10 @@ module.exports = function() {
             return;
           }
           x = $scope.mv > $scope.max - $scope.num ? ($scope.max - $scope.num) * 100 : $scope.mv * 100;
-          return TweenMax.set($element[0].querySelectorAll('.carousel__item'), {
+          TweenMax.set($element[0].querySelectorAll('.carousel__item'), {
             x: "-" + x + "%"
           });
+          console.log($scope.size);
         });
       }
     ]
