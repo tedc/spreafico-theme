@@ -29,7 +29,7 @@
 		?>
 		<figure class="blocks__cell blocks__cell--s3 blocks__cell--figure blocks__cell--figure-alt">
 			<div class="blocks__image">
-				<?php echo wp_get_attachment_image(get_sub_field($block.'_immagine')['ID'], array(1000, 1000)); ?>
+				<?php echo wp_get_attachment_image(get_sub_field($block.'_immagine_2')['ID'], array(1000, 1000)); ?>
 			</div>
 		</figure>
 		<?php endif; ?>
