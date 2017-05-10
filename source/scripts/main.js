@@ -36340,6 +36340,7 @@ module.exports = function() {
           if (Modernizr.mq("screen and (min-width: " + (em(850)) + "em)")) {
             $scope.num = $attrs.perPage ? parseInt($attrs.perPage) : 3;
           }
+          $scope.size = 12 / $scope.num;
           console.log($scope.size, $scope.num);
           if ($scope.mv === 0) {
             return;
