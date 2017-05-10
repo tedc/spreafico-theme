@@ -7,7 +7,7 @@
 		$img_id = get_post_thumbnail_id($brand->ID);
 		$src = wp_get_attachment_image_src( $img_id, 'full' );
 		$comma = ($count>0) ? ',' : '';
-		$array .= $comma . '{url :\''.$src[0].'\'}';
+		$array .= $comma . '{url :\''.$src[0].'\', title : \''.get_the_title($brand->ID).'\'}';
 		$count++;
 	}
 ?>

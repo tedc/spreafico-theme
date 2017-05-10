@@ -30,7 +30,7 @@
 .cat {
 	@include grow('small');
 	z-index: 9998;
-	background-color: $blu;
+	background-color: $brand-main;
 	color: $w;
 	display: flex;
 	position: fixed;

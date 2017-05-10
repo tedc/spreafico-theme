@@ -1,6 +1,6 @@
 .carousel.carousel--grid.carousel--grow-lg
 	.carousel__item(ng-class="'carousel__cell--s{{size}}'" ng-repeat="item in items")
-		img(ng-src="{{item.url}}")
+		img(ng-src="{{item.url}}" ng-attr-alt="{{item.title}}")
 .carousel__nav
 	.icon-arrow-left(ng-click="move(false)")
 	.icon-arrow-right(ng-click="move(true)")
