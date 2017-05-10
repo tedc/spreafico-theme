@@ -121,7 +121,8 @@
 		.section__cell--even & {
 			//left: 50%;
 			left: -2px;
-			top: 80%;
+			//top: 80%;
+			top: em($p*-4);
 			bottom: em($p*-4);
 			//right: -55vw;
 			right: em($p*2);
