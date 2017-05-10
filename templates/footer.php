@@ -6,6 +6,7 @@
 	P.iva: <?php the_field('piva', 'options'); ?></p>
 	</div>
 	<?php if(have_rows('menu', 'options')) : ?>
+	<div class="footer__cell footer__cell--s9">
 	<ul class="footer__cell footer__cell--s3">
 	<?php $count = 0; while(have_rows('menu', 'options')) : the_row('menu', 'options'); ?>
 	<?php if($count%4==0 && $count > 0) : ?>
@@ -18,6 +19,7 @@
 	
 	<?php $count++; endwhile; ?>
 	</ul>
+	</div>
 	<?php endif; ?>
 	</div>
 	<div class="footer__container footer__container--grid-align-center footer__container--grow">
