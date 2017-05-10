@@ -420,6 +420,9 @@
 		display: flex;
 		justify-content: flex-end;
 	}
+	&__figure {
+		margin: 0;
+	}
 	img {
 		width: $f;
 		height: auto;
