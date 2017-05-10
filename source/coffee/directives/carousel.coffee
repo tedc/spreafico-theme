@@ -38,7 +38,7 @@ module.exports = ->
                     $scope.num = 2
                 if Modernizr.mq "screen and (min-width: #{em(850)}em)"
                     $scope.num = if $attrs.perPage then parseInt $attrs.perPage else 3
-                console.log $scope.size
+                console.log $scope.size, $scope.num
                 return if $scope.mv is 0
                 x = if $scope.mv > $scope.max - $scope.num then ($scope.max - $scope.num)*100 else $scope.mv*100
                 TweenMax.set( $element[0].querySelectorAll('.carousel__item'), { x : "-#{x}%"})
