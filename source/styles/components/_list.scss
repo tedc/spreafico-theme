@@ -1,5 +1,6 @@
 .list {
 	@include grow('lg', 'bottom');
+	@include grow('lg');
 	li {
 		padding-bottom: em(20px);
 		&:nth-last-child(1) {
@@ -12,5 +13,10 @@
 	}
 	&:before {
 
+	}
+	.current-cat {
+		a {
+			@extend %anormal;
+		}
 	}
 }
