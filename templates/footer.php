@@ -11,7 +11,7 @@
 	<li class="footer__item footer__item--shrink-left-only">
 		<a href="<?php echo get_permalink(get_sub_field('menu_item')); ?>"><?php echo get_the_title(get_sub_field('menu_item')); ?></a>
 	</li>
-	<?php if($count%3==0 && $count> 0) : ?>
+	<?php if($count%4==0) : ?>
 	</ul>
 	<ul class="footer__cell footer__cell--s3">
 	<?php endif; ?>
