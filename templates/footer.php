@@ -8,13 +8,14 @@
 	<?php if(have_rows('menu', 'options')) : ?>
 	<ul class="footer__cell footer__cell--s3">
 	<?php $count = 0; while(have_rows('menu', 'options')) : the_row('menu', 'options'); ?>
-	<li class="footer__item footer__item--shrink-left-only">
-		<a href="<?php echo get_permalink(get_sub_field('menu_item')); ?>"><?php echo get_the_title(get_sub_field('menu_item')); ?></a>
-	</li>
-	<?php if($count%4==0) : ?>
+	<?php if($count%4==0 && $count > 0) : ?>
 	</ul>
 	<ul class="footer__cell footer__cell--s3">
 	<?php endif; ?>
+	<li class="footer__item footer__item--shrink-left-only">
+		<a href="<?php echo get_permalink(get_sub_field('menu_item')); ?>"><?php echo get_the_title(get_sub_field('menu_item')); ?></a>
+	</li>
+	
 	<?php $count++; endwhile; ?>
 	</ul>
 	<?php endif; ?>
