@@ -36535,74 +36535,7 @@ module.exports = function($window) {
 
 
 },{}],20:[function(require,module,exports){
-module.exports = function($templateCache) {
-  var slider;
-  return slider = {
-    scope: true,
-    template: $templateCache.get(assets + "tpl/slider.tpl.html"),
-    controller: [
-      "$scope", "$attrs", "$timeout", "$element", function($scope, $attrs, $timeout, $element) {
-        var i, id, img, j, ref;
-        $scope.range = function(min, max, step) {
-          var i, input, j, ref, ref1, ref2;
-          step = step || 1;
-          input = [];
-          for (i = j = ref = min, ref1 = max, ref2 = step; ref2 > 0 ? j <= ref1 : j >= ref1; i = j += ref2) {
-            input.push(i);
-          }
-          return input;
-        };
-        $scope.title = $attrs.sliderTitle;
-        $scope.show = $attrs.showLabel;
-        $scope.kind = $attrs.sliderKind ? $attrs.sliderKind : false;
-        id = "#" + $attrs.id;
-        $scope.slider = new TimelineMax({
-          repeat: -1
-        });
-        $scope.current = 0;
-        $scope.isPrev = false;
-        $scope.isNext = true;
-        $scope.slides = sliders[$attrs.id];
-        $scope.loaded = [];
-        for (i = j = 0, ref = $scope.slides.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-          img = new Image();
-          img.src = $scope.slides[i].url;
-          img = angular.element(img);
-          img.on('load', function() {
-            $timeout(function() {
-              $scope.loaded[i] = true;
-            }, 0);
-          });
-        }
-        $scope.isLoaded = function(i) {
-          return $scope.loaded[i];
-        };
-        $scope.slideTo = function(c) {
-          $scope.slider.pause(true);
-          $scope.current = c;
-          $scope.isPrev = $scope.current > 0 ? true : false;
-          $scope.isNext = $scope.current < $scope.slides.length - 1 ? true : false;
-          $scope.slider.play(true);
-          TweenMax.to([id + " .linee__cell--slide", id + " .full-slider__cell"], 1, {
-            x: (100 * $scope.current * -1) + "%",
-            ease: .75
-          });
-        };
-        $scope.move = function(cond) {
-          var value;
-          if ($scope.current + 1 > $scope.slides.length - 1 && cond) {
-            return;
-          }
-          if ($scope.current - 1 < 0 && !cond) {
-            return;
-          }
-          value = cond ? $scope.current + 1 : $scope.current - 1;
-          $scope.slideTo(value);
-        };
-      }
-    ]
-  };
-};
+
 
 
 },{}],21:[function(require,module,exports){
