@@ -1,7 +1,10 @@
 .header {
-	@include grow('md');
+	@include grow();
 	overflow: hidden;
 	min-height: mh($p*8);
+	.page-template-template-contact & {
+		min-height: 0;
+	}
 	&__cell {
 		position: relative;
 		z-index: 2;
