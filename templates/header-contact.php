@@ -1,5 +1,5 @@
 <?php use Roots\Sage\Titles; ?>
-<header class="header header--shrink header--grow-md">
+<header class="header header--shrink header--grow-lg">
 	<h1 class="header__title header__title--huge"><strong><?= Titles\title(); ?></strong></h1>
 	<script type="text/javascript">
 		var map_data = [[<?php echo get_field('map')['lat']; ?>, <?php echo get_field('map')['lng']; ?>]];
