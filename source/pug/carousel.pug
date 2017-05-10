@@ -1,5 +1,5 @@
 .carousel.carousel--grid-nowrap.carousel--grow-lg
-	.carousel__item(ng-class="'carousel__item--s{{size}}'" ng-repeat="item in items")
+	.carousel__item(ng-repeat="item in items")
 		figure.carousel__figure.carouse__figure--shrink
 			img(ng-src="{{item.url}}" ng-attr-alt="{{item.title}}")
 .carousel__nav.carousel__nav--shrink

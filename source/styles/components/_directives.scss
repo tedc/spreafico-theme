@@ -412,6 +412,13 @@
 		flex: 0 0 auto;
 		display: flex;
 		align-items: center;
+		width: $f;
+		@include breakpoint(480px) {
+			width: $f/2;
+		}
+		@include breakpoint(850px) {
+			width: $f/3;
+		}
 	}
 	&__nav {
 		position: absolute;
