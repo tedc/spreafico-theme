@@ -414,7 +414,9 @@
 		align-items: center;
 	}
 	&__nav {
-		position: relative;
+		position: absolute;
+		bottom: 0;
+		right: 0;
 		z-index: 1;
 		transform: translate3d(0, 50%, 0);
 		display: flex;
@@ -426,6 +428,7 @@
 	img {
 		width: $f;
 		height: auto;
+		display: block;
 	}
 }
 
