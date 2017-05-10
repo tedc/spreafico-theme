@@ -298,14 +298,17 @@ gulp.task('images', function() {
 
 //TEMPLATES
 
-gulp.task('tpl', function() {
-    gulp.src(path.source + 'pug/*.pug')
+gulp.task('pug', function() {
+    return gulp.src(path.source + 'pug/*.pug')
         .pipe(pug())
         .pipe(rename(function(path) {
             path.basename += ".tpl";
             path.extname = ".html"
         }))
         .pipe(gulp.dest(path.dist + 'tpl'))
+})
+
+gulp.task('tpl', ['pug'], function() {
     return gulp.src(path.dist + 'tpl/*.html') 
         .pipe(ngTemplates({
             header : "module.exports = function($templateCache){",
