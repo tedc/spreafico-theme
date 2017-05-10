@@ -36340,6 +36340,7 @@ module.exports = function() {
           if (Modernizr.mq("screen and (min-width: " + (em(850)) + "em)")) {
             $scope.num = $attrs.perPage ? parseInt($attrs.perPage) : 3;
           }
+          console.log($scope.size);
           if ($scope.mv === 0) {
             return;
           }
@@ -36347,7 +36348,6 @@ module.exports = function() {
           TweenMax.set($element[0].querySelectorAll('.carousel__item'), {
             x: "-" + x + "%"
           });
-          console.log($scope.size);
         });
       }
     ]
