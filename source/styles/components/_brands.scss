@@ -29,5 +29,8 @@
 				justify-content: flex-start;
 			}
 		}
+		&[ng-carousel] {
+			display: flex;
+		}
 	}
 }
