@@ -3,6 +3,9 @@
 		position: sticky;
 		top: em(70px);
 		margin-bottom: em($p*4);
+		.admin-bar.logged-in & {
+			top: calc(#{em(70px)} + 32px);
+		}
 	}
 }
 
