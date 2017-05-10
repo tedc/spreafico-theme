@@ -15,7 +15,7 @@
 			$image = $images[$rand]; ?>
 		<svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 <?php echo $image['width']; ?> <?php echo $image['height']; ?>">
 			<defs>
-				<filter id="popup_filter" color-interpolation-filters="sRGB">
+				<filter id="popup_filter">
 					<feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" result="gray"></feColorMatrix><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="table" tableValues="1 0.9058823529411765 0.8117647058823529 0.7607843137254902"></feFuncR><feFuncG type="table" tableValues="1 0.884313725490196 0.7686274509803922 0.7098039215686275"></feFuncG><feFuncB type="table" tableValues="1 0.8450980392156863 0.6901960784313725 0.6078431372549019"></feFuncB><feFuncA type="table" tableValues="1 1 1 1"></feFuncA></feComponentTransfer>
 				</filter>
 			</defs>
