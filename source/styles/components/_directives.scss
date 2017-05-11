@@ -408,6 +408,9 @@
 
 .carousel {
 	@include grow('lg');
+	&__wrapper {
+		overflow: hidden;
+	}
 	&__item {
 		flex: 0 0 auto;
 		display: flex;
