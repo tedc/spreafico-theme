@@ -36309,6 +36309,7 @@ module.exports = function() {
           width: width + "%"
         });
         $scope.$watch("item.url", function(oldValue, newValue) {
+          console.log(oldValue, newValue);
           TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
             width: itemW + "%"
           });

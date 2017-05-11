@@ -21,6 +21,7 @@ module.exports = ->
             TweenMax.set wrapper,
                 width : "#{width}%"
             $scope.$watch "item.url", (oldValue, newValue)->
+                console.log oldValue, newValue
                 TweenMax.set wrapper.querySelectorAll('.carousel__item'),
                     width : "#{itemW}%"
                 return
