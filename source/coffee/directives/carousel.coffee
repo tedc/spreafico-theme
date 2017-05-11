@@ -29,6 +29,9 @@ module.exports = ->
                 $scope.move = (cond)->
                     if cond then $scope.carousel.next() else $scope.carousel.prev() 
                     return
+                $scope.$on 'ngRepeatFinished', ->
+                    $scope.carousel.refresh()
+                    return
                 return
             , 0 
             w.bind 'resize', ->
@@ -43,6 +46,7 @@ module.exports = ->
                     width : "#{width}%"
                 TweenMax.set wrapper.querySelectorAll('.carousel__item'),
                     width : "#{itemW}%"
+                $scope.carousel.refresh()
                 return
             return
         ]

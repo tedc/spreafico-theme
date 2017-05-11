@@ -10,3 +10,13 @@ sprfc
 	.directive 'ngScroll', [ require './scroll.coffee']
 	.directive 'ngMap', [ "$timeout", "loadGoogleMapAPI", "$compile", require './map.coffee']
 	.directive 'ngBlocks', ["$timeout", require './blocks.coffee']
+	.directive 'onFinishRender', ["$timeout", ($timeout)->
+		endRepeat = 
+			restrict : 'A'
+			link : (scope, element, attr)->
+				if scope.$last is true
+					$timeout ->
+						$scope.$emit attr.onFinishRender
+						return
+				return
+	]
