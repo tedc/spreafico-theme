@@ -36434,7 +36434,7 @@ sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', 
       link: function(scope, element, attr) {
         if (scope.$last === true) {
           $timeout(function() {
-            $scope.$emit(attr.onFinishRender);
+            scope.$emit(attr.onFinishRender);
           });
         }
       }

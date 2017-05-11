@@ -16,7 +16,7 @@ sprfc
 			link : (scope, element, attr)->
 				if scope.$last is true
 					$timeout ->
-						$scope.$emit attr.onFinishRender
+						scope.$emit attr.onFinishRender
 						return
 				return
 	]
