@@ -431,9 +431,11 @@
 	}
 	&__figure {
 		margin: 0;
+		text-align: center;
 	}
 	img {
-		width: $f;
+		width: $f*0.8;
+		margin: 0 auto;
 		height: auto;
 		display: block;
 	}

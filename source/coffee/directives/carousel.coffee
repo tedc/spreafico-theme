@@ -30,7 +30,7 @@ module.exports = ->
                 $scope.isCurrent = if cond then (if $scope.isCurrent - 1 <= 0 then 0 else $scope.isCurrent - 1) else (if $scope.isCurrent + 1 >= max then max else $scope.isCurrent + 1)
                 x = if cond then 100 else -100
                 items = $element[0].querySelectorAll '.carousel__item'
-                TweenMax.staggerTo items, .5, { x : "+=#{x}%"}, .05
+                TweenMax.to items, .5, { x : "+=#{x}%"}
                 return
             w.bind 'resize', ->
                 $scope.num = 1
