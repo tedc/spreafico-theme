@@ -11,12 +11,12 @@
 			min-height: #{$mw}vw;
 		}
 		&--odd, &--even {
-			order: 0;
+			order: 1;
 		}
 		&--even {
 			&.section__cell--text {
 				@include breakpoint($bp, false) {
-					order: 1;
+					order: 0;
 				}
 			}
 		}
