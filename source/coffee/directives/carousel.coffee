@@ -17,10 +17,13 @@ module.exports = ->
             $scope.items = $scope.$eval $attrs.items
             width = if $scope.max > $scope.num then ( 100 / $scope.num ) * $scope.max else 100
             itemW = 100 / $scope.max
+            console.log itemW
             TweenMax.set wrapper,
                 width : "#{width}%"
-            TweenMax.set wrapper.querySelectorAll('.carousel__item'),
-                width : "#{itemW}%"
+            $scope.$watch "item.url", (oldValue, newValue)->
+                TweenMax.set wrapper.querySelectorAll('.carousel__item'),
+                    width : "#{itemW}%"
+                return
             $timeout ->
                 opts =
                     preventDefault: off

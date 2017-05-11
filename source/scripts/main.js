@@ -36304,11 +36304,14 @@ module.exports = function() {
         $scope.items = $scope.$eval($attrs.items);
         width = $scope.max > $scope.num ? (100 / $scope.num) * $scope.max : 100;
         itemW = 100 / $scope.max;
+        console.log(itemW);
         TweenMax.set(wrapper, {
           width: width + "%"
         });
-        TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
-          width: itemW + "%"
+        $scope.$watch("item.url", function(oldValue, newValue) {
+          TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
+            width: itemW + "%"
+          });
         });
         $timeout(function() {
           var opts;
