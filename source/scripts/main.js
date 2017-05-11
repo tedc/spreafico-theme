@@ -36300,9 +36300,8 @@ module.exports = function() {
         $scope.max = $attrs.max;
         $scope.size = 12 / $scope.num;
         $scope.items = $scope.$eval($attrs.items);
-        $scope.move = function(cond, max) {
+        $scope.move = function(cond) {
           var items, x;
-          $scope.max = max + 1;
           $scope.num = 1;
           if (Modernizr.mq("screen and (min-width: " + (em(480)) + "em)")) {
             $scope.num = 2;
@@ -36316,15 +36315,15 @@ module.exports = function() {
             }
             $scope.mv -= 1;
           } else {
-            if (max + 1 - $scope.isCurrent === $scope.num) {
+            if ($scope.max + 1 - $scope.isCurrent === $scope.num) {
               return;
             }
-            if ($scope.num > max) {
+            if ($scope.num > $scope.max) {
               return;
             }
             $scope.mv += 1;
           }
-          $scope.isCurrent = cond ? ($scope.isCurrent - 1 <= 0 ? 0 : $scope.isCurrent - 1) : ($scope.isCurrent + 1 >= max ? max : $scope.isCurrent + 1);
+          $scope.isCurrent = cond ? ($scope.isCurrent - 1 <= 0 ? 0 : $scope.isCurrent - 1) : ($scope.isCurrent + 1 >= $scope.max ? max : $scope.isCurrent + 1);
           x = cond ? 100 : -100;
           items = $element[0].querySelectorAll('.carousel__item');
           TweenMax.to(items, .5, {

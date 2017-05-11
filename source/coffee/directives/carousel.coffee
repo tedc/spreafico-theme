@@ -13,8 +13,7 @@ module.exports = ->
             $scope.max = $attrs.max
             $scope.size = 12 / $scope.num
             $scope.items = $scope.$eval $attrs.items
-            $scope.move = (cond, max)->
-                $scope.max = max + 1
+            $scope.move = (cond)->
                 $scope.num = 1
                 if Modernizr.mq "screen and (min-width: #{em(480)}em)"
                     $scope.num = 2
@@ -24,10 +23,10 @@ module.exports = ->
                     return if $scope.isCurrent is 0
                     $scope.mv -= 1
                 else
-                    return if max + 1 - $scope.isCurrent is $scope.num
-                    return if $scope.num > max
+                    return if $scope.max + 1 - $scope.isCurrent is $scope.num
+                    return if $scope.num > $scope.max
                     $scope.mv += 1
-                $scope.isCurrent = if cond then (if $scope.isCurrent - 1 <= 0 then 0 else $scope.isCurrent - 1) else (if $scope.isCurrent + 1 >= max then max else $scope.isCurrent + 1)
+                $scope.isCurrent = if cond then (if $scope.isCurrent - 1 <= 0 then 0 else $scope.isCurrent - 1) else (if $scope.isCurrent + 1 >= $scope.max then max else $scope.isCurrent + 1)
                 x = if cond then 100 else -100
                 items = $element[0].querySelectorAll '.carousel__item'
                 TweenMax.to items, .5, { x : "+=#{x}%"}
