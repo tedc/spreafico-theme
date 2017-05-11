@@ -36325,6 +36325,7 @@ module.exports = function() {
           };
           $scope.$on('ngRepeatFinished', function() {
             $scope.carousel.refresh();
+            console.log(prova);
           });
         }, 0);
         w.bind('resize', function() {
