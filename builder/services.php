@@ -14,7 +14,7 @@
 		<div class="section__figure-container"<?php scrollmagic('"tween":[{"y" : -80},{"y" : 80}], "duration" : "200vh", "triggerHook" : "onEnter", "triggerElement" : "#service_'.get_the_ID().'"' ); ?>><?php the_post_thumbnail('large'); ?></div>
 	</figure>
 </div>
-<div class="section__cell--s6 section__cell--<?php echo ($count%2==0) ? 'odd' : 'even'; ?> section__cell--grow section__cell--shrink<?php echo ($count%2==0) ? '-right-double' : '-double'; ?>">
+<div class="section__cell--s6 section__cell--text section__cell--<?php echo ($count%2==0) ? 'odd' : 'even'; ?> section__cell--grow section__cell--shrink<?php echo ($count%2==0) ? '-right-double' : '-double'; ?>">
 	<?php if(get_field('icon')) { echo '<figure class="svg svg--grow-md-bottom">'. print_svg(get_bloginfo('url') . get_field('icon')) .'</figure>'; } ?>
 	<h3 class="section__title section__title--big-upper"><strong><?php the_title(); ?></strong></h3>
 	<?php if(get_field('subtitle')) : ?><h4 class="section__title section__title--small"><em><?php the_field('subtitle'); ?></em></h4><?php endif; ?>
