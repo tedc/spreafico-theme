@@ -13,7 +13,7 @@
         "../bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin.js",
         "../bower_components/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js"
       ],
-      "bower" : ["fastclick", "scrollmagic", "perfect-scrollbar"]
+      "bower" : ["fastclick", "scrollmagic", "perfect-scrollbar", "iscroll"]
     },
     "main.css": {
       "files": [

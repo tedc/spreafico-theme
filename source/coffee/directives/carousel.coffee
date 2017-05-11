@@ -5,41 +5,45 @@ module.exports = ->
     carousel =
         scope : on
         templateUrl : "#{assets}tpl/carousel.tpl.html"
-        controller : ["$scope", "$window", "$attrs", "$element", ($scope, $window, $attrs, $element)->
+        controller : ["$scope", "$window", "$attrs", "$element", "$timeout", ($scope, $window, $attrs, $element, $timeout)->
             w = angular.element $window
             $scope.isCurrent = 0
+            container = $element[0].querySelector '.carousel__container'
+            wrapper = container.querySelector '.carousel'
             $scope.num = if $attrs.perPage then parseInt $attrs.perPage else 3
             $scope.mv = 0
             $scope.max = $attrs.max
             $scope.size = 12 / $scope.num
             $scope.items = $scope.$eval $attrs.items
-            $scope.move = (cond)->
-                $scope.num = 1
-                if Modernizr.mq "screen and (min-width: #{em(480)}em)"
-                    $scope.num = 2
-                if Modernizr.mq "screen and (min-width: #{em(850)}em)"
-                    $scope.num = if $attrs.perPage then parseInt $attrs.perPage else 3 
-                if cond
-                    return if $scope.isCurrent is 0
-                    $scope.mv -= 1
-                else
-                    return if $scope.max + 1 - $scope.isCurrent is $scope.num
-                    return if $scope.num > $scope.max
-                    $scope.mv += 1
-                $scope.isCurrent = if cond then (if $scope.isCurrent - 1 <= 0 then 0 else $scope.isCurrent - 1) else (if $scope.isCurrent + 1 >= $scope.max then max else $scope.isCurrent + 1)
-                x = if cond then 100 else -100
-                items = $element[0].querySelectorAll '.carousel__item'
-                TweenMax.to items, .5, { x : "+=#{x}%"}
-                return
-            w.bind 'resize', ->
-                $scope.num = 1
-                if Modernizr.mq "screen and (min-width: #{em(480)}em)"
-                    $scope.num = 2
-                if Modernizr.mq "screen and (min-width: #{em(850)}em)"
-                    $scope.num = if $attrs.perPage then parseInt $attrs.perPage else 3
-                return if $scope.mv is 0
-                x = if $scope.mv > $scope.max - $scope.num then ($scope.max - $scope.num)*100 else $scope.mv*100
-                TweenMax.set( $element[0].querySelectorAll('.carousel__item'), { x : "-#{x}%"})
+            width = if $scope.max > $scope.num then ( 100 / $scope.num ) * $scope.max else 100
+            itemW = 100 / $scope.max
+            TweenMax.set wrapper,
+                width : "#{width}%"
+            TweenMax.set wrapper.querySelectorAll('.carousel__item'),
+                width : "#{itemW}%"
+            $timeout ->
+                opts =
+                    preventDefault: off
+                    scrollX: on
+                    scrollY: off
+                    snap: '.carousel__item'
+                $scope.carousel = new IScroll container, opts
+                $scope.move = (cond)->
+                    if cond then $scope.carousel.next() else $scope.carousel.next() 
+                    return
+                w.bind 'resize', ->
+                    $scope.num = 1
+                    if Modernizr.mq "screen and (min-width: #{em(480)}em)"
+                        $scope.num = 2
+                    if Modernizr.mq "screen and (min-width: #{em(850)}em)"
+                        $scope.num = if $attrs.perPage then parseInt $attrs.perPage else 3
+                    width = if $scope.max > $scope.num then ( 100 / $scope.num ) * $scope.max else 100
+                    itemW = 100 / $scope.max
+                    TweenMax.set wrapper,
+                        width : "#{width}%"
+                    TweenMax.set wrapper.querySelectorAll('.carousel__item'),
+                        width : "#{itemW}%"
+                    return
                 return
             return
         ]
