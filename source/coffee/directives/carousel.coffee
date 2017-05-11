@@ -20,12 +20,11 @@ module.exports = ->
             console.log itemW
             TweenMax.set wrapper,
                 width : "#{width}%"
-            for i in $scope.items
-                $scope.$watch i, (oldValue, newValue)->
-                    console.log oldValue, newValue
-                    TweenMax.set wrapper.querySelectorAll('.carousel__item'),
-                        width : "#{itemW}%"
-                    return
+            $scope.$watch $scope.items, (oldValue, newValue)->
+                console.log oldValue, newValue
+                TweenMax.set wrapper.querySelectorAll('.carousel__item'),
+                    width : "#{itemW}%"
+                return
             $timeout ->
                 opts =
                     preventDefault: off

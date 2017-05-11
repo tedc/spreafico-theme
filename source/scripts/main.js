@@ -36292,7 +36292,7 @@ module.exports = function() {
     templateUrl: assets + "tpl/carousel.tpl.html",
     controller: [
       "$scope", "$window", "$attrs", "$element", "$timeout", function($scope, $window, $attrs, $element, $timeout) {
-        var container, i, itemW, j, len, ref, w, width, wrapper;
+        var container, itemW, w, width, wrapper;
         w = angular.element($window);
         $scope.isCurrent = 0;
         container = $element[0].querySelector('.carousel__container');
@@ -36308,16 +36308,12 @@ module.exports = function() {
         TweenMax.set(wrapper, {
           width: width + "%"
         });
-        ref = $scope.items;
-        for (j = 0, len = ref.length; j < len; j++) {
-          i = ref[j];
-          $scope.$watch(i, function(oldValue, newValue) {
-            console.log(oldValue, newValue);
-            TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
-              width: itemW + "%"
-            });
+        $scope.$watch($scope.items, function(oldValue, newValue) {
+          console.log(oldValue, newValue);
+          TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
+            width: itemW + "%"
           });
-        }
+        });
         $timeout(function() {
           var opts;
           opts = {
