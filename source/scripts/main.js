@@ -36323,25 +36323,25 @@ module.exports = function() {
             if (cond) {
               $scope.carousel.next();
             } else {
-              $scope.carousel.next();
+              $scope.carousel.prev();
             }
           };
-          w.bind('resize', function() {
-            $scope.num = 1;
-            if (Modernizr.mq("screen and (min-width: " + (em(480)) + "em)")) {
-              $scope.num = 2;
-            }
-            if (Modernizr.mq("screen and (min-width: " + (em(850)) + "em)")) {
-              $scope.num = $attrs.perPage ? parseInt($attrs.perPage) : 3;
-            }
-            width = $scope.max > $scope.num ? (100 / $scope.num) * $scope.max : 100;
-            itemW = 100 / $scope.max;
-            TweenMax.set(wrapper, {
-              width: width + "%"
-            });
-            TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
-              width: itemW + "%"
-            });
+        }, 0);
+        w.bind('resize', function() {
+          $scope.num = 1;
+          if (Modernizr.mq("screen and (min-width: " + (em(480)) + "em)")) {
+            $scope.num = 2;
+          }
+          if (Modernizr.mq("screen and (min-width: " + (em(850)) + "em)")) {
+            $scope.num = $attrs.perPage ? parseInt($attrs.perPage) : 3;
+          }
+          width = $scope.max > $scope.num ? (100 / $scope.num) * $scope.max : 100;
+          itemW = 100 / $scope.max;
+          TweenMax.set(wrapper, {
+            width: width + "%"
+          });
+          TweenMax.set(wrapper.querySelectorAll('.carousel__item'), {
+            width: itemW + "%"
           });
         });
       }

@@ -1,7 +1,7 @@
 <?php 
 	$brands = get_posts(array('post_type'=>'marchi', 'posts_per_page' =>-1));
 	$array = '';
-	$max = count($brands) + 1;
+	$max = count($brands);
 	$count = 0; 
 	foreach ($brands as $brand) {
 		$img_id = get_post_thumbnail_id($brand->ID);
