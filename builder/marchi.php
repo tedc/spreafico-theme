@@ -15,5 +15,5 @@
 	<header class="brands__cell brands__cell--grow-lg brands__cell--s3 brands--grow-lg brands__cell--header" id="brands_header">
 		<h4 class="brands__title brands__title--small"><strong><?php _e('I nostri marchi', 'sprfc'); ?></strong></h4>
 	</header>
-	<div class="brands__cell brands__cell--s9" ng-carousel per-page="<?php the_sub_field('brands_cols'); ?>" max="3" items="[<?php echo $array; ?>]"></div>
+	<div class="brands__cell brands__cell--s9" ng-carousel per-page="3" max="<?php echo $max; ?>" items="[<?php echo $array; ?>]"></div>
 </section>
