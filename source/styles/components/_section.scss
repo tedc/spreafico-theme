@@ -15,7 +15,7 @@
 		}
 		&--odd {
 			&.section__cell--text {
-				@include breakpoint($bp, false) {
+				@include breakpoint($bp) {
 					order: 0;
 				}
 			}
