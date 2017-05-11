@@ -408,7 +408,7 @@
 
 .carousel {
 	@include grow('lg');
-	&__wrapper {
+	&__container {
 		overflow: hidden;
 	}
 	&__item {
