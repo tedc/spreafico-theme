@@ -8,6 +8,18 @@
 	<?php if(have_rows('menu', 'options')) : ?>
 	<div class="footer__cell footer__cell--s9 footer__cell--grid">
 	<ul class="footer__cell footer__cell--s3">
+	<?php $count = 0; while(have_rows('menu_linee', 'options')) : the_row('menu', 'options'); ?>
+	<?php if($count%4==0 && $count > 0) : ?>
+	</ul>
+	<ul class="footer__cell footer__cell--s3">
+	<?php endif; ?>
+	<li class="footer__item footer__item--shrink-left-only">
+		<a href="<?php echo get_permalink(get_sub_field('menu_item')); ?>"><?php echo get_the_title(get_sub_field('menu_item')); ?></a>
+	</li>
+	
+	<?php $count++; endwhile; ?>
+	</ul>
+	<ul class="footer__cell footer__cell--s3">
 	<?php $count = 0; while(have_rows('menu', 'options')) : the_row('menu', 'options'); ?>
 	<?php if($count%4==0 && $count > 0) : ?>
 	</ul>
