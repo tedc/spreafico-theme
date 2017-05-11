@@ -13,7 +13,7 @@
 		&--odd, &--even {
 			order: 1;
 		}
-		&--odd {
+		&--even {
 			&.section__cell--text {
 				@include breakpoint($bp) {
 					order: 0;
