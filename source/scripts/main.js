@@ -36700,7 +36700,7 @@ module.exports = function() {
         i = sides[j];
         line = document.createElement('div');
         line.className = "square__line square__line--" + i;
-        div.append(line);
+        div.appendChild(line);
       }
       if (name.kind !== 'figure') {
         element.prepend(div);

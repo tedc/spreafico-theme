@@ -8,7 +8,7 @@ module.exports = ->
 			for i in sides
 				line = document.createElement 'div'
 				line.className = "square__line square__line--#{i}"
-				div.append line
+				div.appendChild line
 			element.prepend div if name.kind isnt 'figure'
 			if name.kind is 'slider' or name.kind is 'blocks' or name.kind is 'figure'
 				square = document.createElement 'div'
