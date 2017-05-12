@@ -3,6 +3,13 @@
 }
 
 
+html {
+    @include breakpoint($bp, false) {
+        overflow-x: hidden;
+    }
+}
+
+
 body {
     font-size: $base_font_size - 4px;
     color: $main-color;
