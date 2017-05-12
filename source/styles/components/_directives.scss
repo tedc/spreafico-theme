@@ -359,7 +359,7 @@
 		}
 	}
 	.full-slider & {
-		height: calc(100vw - #{em($p*2)});
+		height: calc(100vh - #{em($p*2)});
 		@include breakpoint($bp) {
 			height: calc(100vh - #{em(120px)});
 		}
