@@ -29,6 +29,12 @@
 
 .cat {
 	@include grow('small');
+	.page-template-template-contact & {
+		display: none;
+		@include breakpoint($bp) {
+			display: inherit;
+		}
+	}
 	z-index: 9998;
 	background-color: $brand-main;
 	color: $w;
