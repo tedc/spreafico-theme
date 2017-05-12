@@ -13,11 +13,11 @@
 		i.icon-arrow-left(ng-click="move(false)" ng-class="{'inactive' : !isPrev}")
 		i.icon-arrow-right(ng-click="move(true)" ng-class="{'inactive' : !isNext}")
 .full-slider__content.slider__content--grid-nowrap(ng-if="kind=='full'")
-	.full-slider__cell(ng-repeat="item in slides" ng-bind-html="item.alt")
+	.full-slider__cell(ng-repeat="item in slides" ng-bind-html="item.alt" ng-class="{'linee__cell--hidden':slide.title==''}")
 .linee__container(ng-if="kind == 'linee'")
 	h6.linee__title.linee__title--smaller.linee__title--smaller-upper(ng-bind-html="title")
 	.linee__content.linee__content--grid-nowrap
-		.linee__cell.linee__cell--slide(ng-repeat="slide in slides" ng-class="{'linee__cell--hidden':slide.title==''}")
+		.linee__cell.linee__cell--slide(ng-repeat="slide in slides")
 			figure.linee__cover
 				img(ng-src="{{slide.url}}" ng-attr-alt="{{slide.title}}")
 			a.linee__button.linee__button--showbtn(ng-href="{{slide.link}}" ng-attr-data-more="{{show}}" ng-bind-html="slide.title")
