@@ -31,7 +31,6 @@ module.exports = ->
                     return
                 $scope.$on 'ngRepeatFinished', ->
                     $scope.carousel.refresh()
-                    console.log $scope.carousel
                     return
                 return
             , 0 

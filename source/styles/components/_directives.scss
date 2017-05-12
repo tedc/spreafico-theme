@@ -251,13 +251,6 @@
 		&:not(.slider__cell--s12) {
 			width: $f/2 !important;
 		}
-		.slide__cover {
-			background: {
-				size: cover;
-				repeat: no-repeat;
-				position: center;
-			}
-		}
 		&--left {
 			.slider__cover {
 				left: 0;
@@ -301,7 +294,11 @@
 		width: $f*2;
 		height: $f;
 		top: 0;
-		background-size: cover;
+		background: {
+			size: cover;
+			repeat: no-repeat;
+			position: center;
+		}
 		svg {
 			@include full;
 		}

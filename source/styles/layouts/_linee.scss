@@ -53,6 +53,9 @@
 				@extend %anormal;
 			}
 		}
+		&--hidden {
+			visibility: hidden;
+		}
 		&--slide {
 			@include breakpoint($bp, false) {
 				transform: none !important;
