@@ -359,10 +359,7 @@
 		}
 	}
 	.full-slider & {
-		height: calc(100vh - #{em($p*2)});
-		@include breakpoint($bp) {
-			height: calc(100vh - #{em(120px)});
-		}
+		height: calc(100vh - #{em(120px)});
 		top: em(40px);
 		z-index: 10;
 	}
@@ -373,10 +370,7 @@
 		overflow: hidden;
 		position: relative;
 		z-index: 30;
-		padding-top: 100vw;
-		@include breakpoint($bp) {
-			padding-top: calc(100vh - #{em(80px)});
-		}
+		padding-top: calc(100vh - #{em(80px)}) !important;
 		padding-bottom: em(80px);
 		&__content {
 			counter-reset: section;
