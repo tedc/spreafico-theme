@@ -13,7 +13,7 @@
 		i.icon-arrow-left(ng-click="move(false)" ng-class="{'inactive' : !isPrev}")
 		i.icon-arrow-right(ng-click="move(true)" ng-class="{'inactive' : !isNext}")
 .full-slider__content.slider__content--grid-nowrap(ng-if="kind=='full'")
-	.full-slider__cell(ng-repeat="item in slides" ng-bind-html="item.alt" ng-class="{'linee__cell--hidden':slide.title==''}")
+	.full-slider__cell(ng-repeat="item in slides" ng-bind-html="item.alt" ng-class="{'linee__cell--hidden':item.alt==''}")
 .linee__container(ng-if="kind == 'linee'")
 	h6.linee__title.linee__title--smaller.linee__title--smaller-upper(ng-bind-html="title")
 	.linee__content.linee__content--grid-nowrap
