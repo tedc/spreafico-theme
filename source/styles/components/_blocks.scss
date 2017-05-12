@@ -21,8 +21,6 @@
 	&__cell {
 		@include grow('md');
 		&--figure {
-			display: flex;
-			align-items: center;
 			margin: 0;
 			img {
 				width: $f !important;
@@ -37,7 +35,9 @@
 				}
 			}
 			@include breakpoint($bp) {
+				display: flex;
 				padding: em(10px);
+				align-items: center;
 			}
 		}	
 		&--content {
