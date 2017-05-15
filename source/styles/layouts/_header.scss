@@ -18,9 +18,6 @@
 		.wp-post-image.size-full {
 			width: $f !important;
 			height: auto !important;
-			@include breakpoint($bp) {
-				display: none;
-			}
 		}
 		@include grow('lg');
 		&--content {

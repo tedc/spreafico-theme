@@ -4,8 +4,10 @@
 
 
 html {
-    @include breakpoint($bp, false) {
+    color: transparent !important;
+    @include breakpoint($bp, false)  {
         overflow-x: hidden;
+        overflow-y: auto;   
     }
 }
 
@@ -15,10 +17,13 @@ body {
     color: $main-color;
     margin: 0;
     padding-top: em(80px);
-    font-family: $main-font;
+    font-family: "Trebuchet MS", Helvetica, Arial, san-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    .wf-active &, .wf-inactive & {
+        font-family: $main-font;
+    }
     @include breakpoint(640px) {
         font-size: $base_font_size - 2px;
     }
