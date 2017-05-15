@@ -7,8 +7,11 @@
 		position: relative;
 		@include grow();
 		&--slider {
+			min-height: 100vw;
 			$mw: (475*50) / 683;
-			min-height: #{$mw}vw;
+			@include breakpoint($bp) {
+				min-height: #{$mw}vw;
+			}
 		}
 		&--odd, &--even {
 			order: 1;
