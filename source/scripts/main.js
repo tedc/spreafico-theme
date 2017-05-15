@@ -36454,6 +36454,9 @@ module.exports = function() {
           return url.replace('150x150/', '640x640/');
         };
         InstagramPosts.get(function(res) {
+          if (res.data.length < 1) {
+            return;
+          }
           $scope.items = res.data;
           $scope.username = res.data[0].user.username;
         });
