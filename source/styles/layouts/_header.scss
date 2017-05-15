@@ -1,7 +1,9 @@
 .header {
 	@include grow();
 	overflow: hidden;
-	min-height: mh($p*8);
+	@include breakpoint($bp) {
+		min-height: mh($p*8);
+	}
 	.page-template-template-contact & {
 		min-height: 0;
 	}
