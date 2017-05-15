@@ -2,7 +2,7 @@ module.exports = ($templateCache) ->
 	slider =
 		scope: on
 		template : $templateCache.get "#{assets}tpl/slider.tpl.html"
-		controller : ["$scope", "$attrs", "$timeout", "$element", ($scope, $attrs, $timeout, $element)->
+		controller : ["$scope", "$attrs", "$timeout", "$element", "$rootScope", ($scope, $attrs, $timeout, $element, $rootScope)->
 			$scope.range = (min, max, step)->
 				step = step or 1
 				input = []
@@ -30,6 +30,9 @@ module.exports = ($templateCache) ->
 						return
 					, 0
 					return
+			$scope.$on 'onSliderEnd', ->
+                $rootScope.$emit 'lazyImg:refresh'
+                return
 			$scope.isLoaded = (i)->
 				return $scope.loaded[i]
 			$scope.slideTo = (c)->
