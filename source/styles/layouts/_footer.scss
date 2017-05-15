@@ -130,6 +130,7 @@
 		right: 0;
 		background-color: $w;
 		z-index: 20;
+		color: $w;
 		&:before {
 			content: attr(data-close);
 			right: $f;
