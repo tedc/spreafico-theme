@@ -50,10 +50,6 @@
 }
 [class*="align"] {
 	display: flex;
-	> * {
-		width: $f;
-		flex: 0 0 auto;
-	}
 }
 [class*="-align-start"] {
 	align-content: flex-start;
