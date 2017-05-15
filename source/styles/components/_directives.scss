@@ -221,8 +221,10 @@
 		right: 0;
 	}
 	.header__cell--even & {
-		right: 0;
-		left: percentage(163px/1366px) * -1;
+		@include breakpoint($bp) {
+			right: 0;
+			left: percentage(163px/1366px) * -1;
+		}
 	}
 	.header__cell--odd & {
 		@include breakpoint($bp) {
