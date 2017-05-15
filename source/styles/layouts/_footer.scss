@@ -130,13 +130,12 @@
 		right: 0;
 		background-color: $w;
 		z-index: 20;
-		color: $w;
 		&:before {
 			content: attr(data-close);
 			right: $f;
 			padding-right: em(20px);
 			text-transform: uppercase;
-			color: $light;
+			color: $w;
 			display: flex;
 			align-items: center;
 			height: $f;
