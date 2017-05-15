@@ -48,7 +48,7 @@
         }
     }
 }
-[class~="align"] {
+[class*="align"] {
 	display: flex;
 	> * {
 		width: $f;
