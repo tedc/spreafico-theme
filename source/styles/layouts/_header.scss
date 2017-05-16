@@ -20,6 +20,9 @@
 			height: auto !important;
 		}
 		@include grow('lg');
+		&--figure {
+			order: 3 !important;
+		}
 		&--content {
 			display: flex;
 			align-items: center;
