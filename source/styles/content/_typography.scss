@@ -91,10 +91,13 @@ strong {
     }
 }
 [class*="-huge"] {
-	font-size: vw(80px);
-    font-size: vw(100px);
-    font-size: em(100px);
+	// font-size: vw(80px);
+ //    font-size: vw(100px);
+    font-size: em(60px);
     letter-spacing: 0;
+    @include breakpoint($bp) {
+        font-size: vw(100px);
+    }
  //    .home & {
  //        font-size: vw(100px);
  //        padding-bottom: 80px;
