@@ -99,7 +99,10 @@ strong {
         font-size: em(60px, 14px);
     }
     @include breakpoint($bp) {
-        font-size: vw(100px);
+        font-size: vw(80px);
+        .home .header & {
+            font-size: vw(100px);
+        }
     }
  //    .home & {
  //        font-size: vw(100px);
