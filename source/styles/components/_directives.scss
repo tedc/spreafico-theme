@@ -63,6 +63,10 @@
 		right: 80%;
 		left: -2px;
 		opacity: .5;
+		display: none;
+		@include breakpoint($bp) {
+			display: inherit;
+		}
 		[class*="even"] & {
 			right: -2px;
 			left: em($p*-2);
@@ -87,13 +91,13 @@
 			z-index: 0;
 			top: -10px;
 			left: em($p*2) !important;
-			right: em($p*2);
-			bottom: em($p*-4);
+			right: em($p*2) !important;
+			bottom: em($p*-2);
 		}
 		.header__cell--even & {
 			@include breakpoint($bp) {
 				z-index: 20;
-				right: -2px;
+				right: -2px !important;
 				top: em(40px);
 				bottom: em(40px);
 				left: em(40px*3) * -1 !important;
@@ -104,7 +108,7 @@
 				top: em($p*2);
 				z-index: 20;
 				bottom: em($p*2);
-				right: calc(#{($f*-1)} - 2px);
+				right: calc(#{($f*-1)} - 2px) !important;
 				left: $f - percentage(163px/1366px);
 				opacity: .5;
 			}
@@ -135,6 +139,16 @@
 		}
 		.section__cell--image & {
 			display: none;
+		}
+		.header__cell--figure:not(.header__cell--slider) & {
+			z-index: 0;
+			top: -10px;
+			left: em($p*2) !important;
+			right: em($p*2) !important;
+			bottom: em($p*-2);
+			@include breakpoint($bp) {
+				display: none;
+			}
 		}
 	}
 	&--blocks {

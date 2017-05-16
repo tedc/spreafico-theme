@@ -4,7 +4,7 @@
 ?>
 
 <header class="header header--grid header--grow-md" id="header">
-	<div class="header__cell header__cell--figure header__cell--s6 <?php if(!get_field('is_gallery') && has_post_thumbnail()): echo ' header__cell--align-center'; endif; ?> header__cell--<?php the_field('image_position'); ?><?php if(get_field('is_gallery')): echo ' header__cell--slider'; endif; ?>"<?php scrollmagic($sm); ?>>
+	<div class="header__cell header__cell--figure header__cell--s6 <?php if(!get_field('is_gallery') && has_post_thumbnail()): echo ' header__cell--align-center'; endif; ?> header__cell--<?php the_field('image_position'); ?><?php if(get_field('is_gallery')): echo ' header__cell--slider'; endif; ?>"<?php scrollmagic($sm); ?><?php if(!get_field('is_gallery')):square('side');endif; ?>>
 		<?php 
 			if(get_field('is_gallery') && get_field('header_gallery')) :
 				$images = get_field('header_gallery');
