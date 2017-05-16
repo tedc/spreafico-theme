@@ -20,11 +20,7 @@
 	position: absolute;
 	z-index: 0;
 	&__line {	
-		display: none;
 		.full-slider & {
-			display: inherit;
-		}
-		@include breakpoint($bp) {
 			display: inherit;
 		}
 		background: $brand-main;
@@ -87,20 +83,31 @@
 		opacity: .5;
 	}
 	&--slider {
+		.header__cell--even &, .header__cell--odd & {
+			z-index: 0;
+			top: -10px;
+			left: em($p*2) !important;
+			right: em($p*2);
+			bottom: em($p*-4);
+		}
 		.header__cell--even & {
-			z-index: 20;
-			right: -2px;
-			top: em(40px);
-			bottom: em(40px);
-			left: em(40px*3) * -1 !important;
+			@include breakpoint($bp) {
+				z-index: 20;
+				right: -2px;
+				top: em(40px);
+				bottom: em(40px);
+				left: em(40px*3) * -1 !important;
+			}
 		}
 		.header__cell--odd & {
-			top: em($p*2);
-			z-index: 20;
-			bottom: em($p*2);
-			right: calc(#{($f*-1)} - 2px);
-			left: $f - percentage(163px/1366px);
-			opacity: .5;
+			@include breakpoint($bp) {
+				top: em($p*2);
+				z-index: 20;
+				bottom: em($p*2);
+				right: calc(#{($f*-1)} - 2px);
+				left: $f - percentage(163px/1366px);
+				opacity: .5;
+			}
 		}
 		[class*="even"] & {
 			right: -2px;
