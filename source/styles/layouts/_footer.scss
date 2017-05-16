@@ -32,7 +32,7 @@
 	.page-template-template-contact & {
 		display: none;
 		@include breakpoint($bp) {
-			display: inherit;
+			display: flex;
 		}
 	}
 	z-index: 9998;
