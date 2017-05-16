@@ -90,8 +90,11 @@ strong {
 [class*="-huge"] {
 	// font-size: vw(80px);
  //    font-size: vw(100px);
-    font-size: em(60px, 14px);
+    font-size: em(48px, 14px);
     letter-spacing: 0;
+    .home .header & {
+        font-size: em(52px, 14px);
+    }
     @include breakpoint(480px) {
         font-size: em(60px, 14px);
     }
