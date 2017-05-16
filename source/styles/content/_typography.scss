@@ -13,7 +13,7 @@ html {
 
 
 body {
-    font-size: $base_font_size - 4px;
+    font-size: $base_font_size - 2px;
     color: $main-color;
     margin: 0;
     padding-top: em(80px);
@@ -23,9 +23,6 @@ body {
     overflow-x: hidden;
     .wf-active &, .wf-inactive & {
         font-family: $main-font;
-    }
-    @include breakpoint(640px) {
-        font-size: $base_font_size - 2px;
     }
     @include breakpoint(1024px) {
         font-size: $base_font_size;
