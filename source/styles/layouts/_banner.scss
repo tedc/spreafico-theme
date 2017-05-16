@@ -166,7 +166,8 @@
 			align-items: flex-end;
 			align-content: flex-end;
 			@include grow('lg');
-			flex: 0 0 auto;	
+			flex: 0 0 auto;
+			width: $f;
 			@include breakpoint($bp) {
 				width: 45%;
 			}
