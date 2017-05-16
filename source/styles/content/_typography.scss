@@ -93,7 +93,7 @@ strong {
     font-size: em(42px);
     letter-spacing: 0;
     @include breakpoint(480px) {
-        font-size: vw(60px);
+        font-size: em(60px);
     }
     @include breakpoint($bp) {
         font-size: vw(100px);

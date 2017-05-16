@@ -147,7 +147,7 @@
 			right: em($p*2) !important;
 			bottom: em($p*-2);
 			@include breakpoint($bp) {
-				display: none;
+				display: none !important;
 			}
 		}
 	}
