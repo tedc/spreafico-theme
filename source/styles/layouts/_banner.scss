@@ -271,11 +271,11 @@
 }
 
 .breadcrumb {
-	display: flex;
+	display: none;
 	align-items: center;
-	visibility: hidden;
 	transition: opacity $speed, visibility $speed;
 	@include breakpoint($bp) {
+		display: flex;
 		visibility: visible;
 		.banner--active & {
 			opacity: 0;
