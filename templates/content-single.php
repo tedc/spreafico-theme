@@ -12,9 +12,8 @@
         </div>
         <div class="post__cell post__cell--grow-md post__cell--aside post__cell--aside-s4 post__cell--aside-shrink">
             <?php _e('Condividi:') ?><br />
-            <a href="#" class="icon-facebook"></a>
-            <a href="#" class="icon-twitter"></a>
-            <a href="#" class="icon-facebook"></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" class="icon-facebook"></a>
+            <a href="http://twitter.com/share?url=<?php the_permalink(); ?>&amp;text=<?php the_title(); ?>" class="icon-twitter"></a>
         </div>
         <div class="post__cell post__cell--s8 post__cell--grow-md">
             <div class="post__meta post__meta--shrink">
