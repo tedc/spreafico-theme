@@ -26,6 +26,8 @@ sprfc
 				element.on 'click', ->
 					$timeout ->
 						FastClick.attach document.body
+						for i in document.querySelectorAll('[ng-scroll]')
+							Ps.update i
 						return
 					, 600
 					return

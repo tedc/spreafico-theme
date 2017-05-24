@@ -36447,7 +36447,13 @@ sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', 
       link: function(scope, element, attr) {
         element.on('click', function() {
           $timeout(function() {
+            var i, j, len, ref;
             FastClick.attach(document.body);
+            ref = document.querySelectorAll('[ng-scroll]');
+            for (j = 0, len = ref.length; j < len; j++) {
+              i = ref[j];
+              Ps.update(i);
+            }
           }, 600);
         });
       }
@@ -36532,9 +36538,6 @@ module.exports = function($window) {
   return ps = {
     link: function(scope, element, attrs) {
       var jqWindow, update;
-      if (isMobile) {
-        return;
-      }
       jqWindow = angular.element($window);
       scope.$evalAsync(function() {
         Ps.initialize(element[0], {
