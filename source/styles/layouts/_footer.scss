@@ -120,10 +120,10 @@
 		transform: translate3d(0, $f, 0);
 		.popup--visible & {
 			transform: translate3d(0, 0, 0);
-			// .handheld & {
-			// 	overflow-y: scroll;
-			// 	-webkit-overflow-scrolling: touch;
-			// }
+			.handheld & {
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+			}
 		}
 	}
 	&__close {

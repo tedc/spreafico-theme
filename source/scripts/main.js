@@ -36538,6 +36538,9 @@ module.exports = function($window) {
   return ps = {
     link: function(scope, element, attrs) {
       var jqWindow, update;
+      if (isMobile) {
+        return;
+      }
       jqWindow = angular.element($window);
       scope.$evalAsync(function() {
         Ps.initialize(element[0], {

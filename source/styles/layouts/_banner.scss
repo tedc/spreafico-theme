@@ -134,10 +134,10 @@
 			flex: 20;
 			overflow: hidden;
 			position: relative;
-			// .handheld .banner--active & {
-			// 	overflow-y: scroll;
-			// 	-webkit-overflow-scrolling: touch;
-			// }
+			.handheld .banner--active & {
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+			}
 		}
 		&:before {
 			position: absolute;
