@@ -61,8 +61,10 @@
 %light {
 	color: $dark-color;
 	font-weight: 300;
-	&:hover {
-		color: $brand-main;
+	.desktop & {
+		&:hover {
+			color: $brand-main;
+		}
 	}
 }
 
