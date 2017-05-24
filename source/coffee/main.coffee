@@ -9,3 +9,8 @@ sprfc = angular.module 'sprfc', ['ngTouch', 'ngSanitize', 'ngResource', 'angular
 require './directives/index.coffee'
 require './models/index.coffee'
 require './resources/index.coffee'
+
+setTimoue ->
+	FastClick.attach document.body
+	return
+, 20

@@ -36426,7 +36426,20 @@ var sprfc;
 
 sprfc = angular.module('sprfc');
 
-sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', ["$templateCache", require('./slider.coffee')]).directive('ngCarousel', ["$templateCache", require('./carousel.coffee')]).directive('ngSm', ["$rootScope", "$timeout", require('./sm.coffee')]).directive('ngFooter', ["$window", require('./footer.coffee')]).directive('ngForm', [require('./form.coffee')]).directive('ngInstagram', [require('./instagram.coffee')]).directive('ngScroll', [require('./scroll.coffee')]).directive('ngMap', ["$timeout", "loadGoogleMapAPI", "$compile", require('./map.coffee')]).directive('ngBlocks', ["$timeout", require('./blocks.coffee')]).directive('onFinishRender', [
+sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', ["$templateCache", require('./slider.coffee')]).directive('ngCarousel', ["$templateCache", require('./carousel.coffee')]).directive('ngSm', ["$rootScope", "$timeout", require('./sm.coffee')]).directive('ngFooter', ["$window", require('./footer.coffee')]).directive('ngForm', [require('./form.coffee')]).directive('ngInstagram', [require('./instagram.coffee')]).directive('ngScroll', [require('./scroll.coffee')]).directive('ngMap', ["$timeout", "loadGoogleMapAPI", "$compile", require('./map.coffee')]).directive('ngBlocks', ["$timeout", require('./blocks.coffee')]).directive('fastRefresh', [
+  '$timeout', function($timeout) {
+    var fr;
+    fr = {
+      link: function(scope, element, attr) {
+        element.on('click', function() {
+          return $timeout(function() {
+            FastClick.attach(document.body);
+          }, 500);
+        });
+      }
+    };
+  }
+]).directive('onFinishRender', [
   "$timeout", function($timeout) {
     var endRepeat;
     return endRepeat = {
@@ -36778,15 +36791,17 @@ require('./models/index.coffee');
 
 require('./resources/index.coffee');
 
+setTimoue(function() {
+  FastClick.attach(document.body);
+}, 20);
+
 
 },{"../../node_modules/angular-lazy-img/dist/angular-lazy-img":1,"./directives/index.coffee":16,"./models/index.coffee":24,"./resources/index.coffee":27,"angular":9,"angular-resource":3,"angular-sanitize":5,"angular-touch":7}],24:[function(require,module,exports){
 var sprfc;
 
 sprfc = angular.module('sprfc');
 
-sprfc.run(function() {
-  FastClick.attach(document.body);
-}).run(["$templateCache", require('./templates.min')]);
+sprfc.run(["$templateCache", require('./templates.min')]);
 
 
 },{"./templates.min":25}],25:[function(require,module,exports){
