@@ -16,7 +16,7 @@
         <span class="banner__toggle-line banner__toggle-line--bottom"></span>
     </span>
     <nav class="banner__nav">
-        <div class="banner__nav-container banner__nav-container--grid-nowrap" ng-scroll>
+        <div class="banner__nav-container banner__nav-container--grid-nowrap" >
             <div class="banner__scroller banner__scroller--grid">
                 <?php
                 get_template_part( 'templates/linee' );

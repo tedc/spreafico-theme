@@ -121,25 +121,14 @@
 		width: $f;
 		display: flex;
 		flex-direction: column;
-		.handheld & {
-			display: none;
-		}
-		.desktop & {
-			transition: opacity $speed, visibility $speed;
-			transition-delay: $speed/2;
-			visibility: hidden;
-			opacity: 0;
-		}
-		transform: translateZ(0);
+		transition: opacity $speed, visibility $speed;
+		transition-delay: $speed/2;
+		visibility: hidden;
+		opacity: 0;
 		.banner--active & {	
 			visibility: visible;
 			opacity: 1;
-			.handheld & {
-				display: flex;
-			}
-			.desktop & {
-				transition-delay: 0;
-			}
+			transition-delay: 0;
 		}
 		&-container {
 			flex: 20;
