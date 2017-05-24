@@ -127,6 +127,7 @@
 		}
 		visibility: hidden;
 		opacity: 0;
+		transform: translateZ(0);
 		.banner--active & {	
 			visibility: visible;
 			opacity: 1;
