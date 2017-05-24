@@ -25,9 +25,9 @@ sprfc
 			link : (scope, element, attr)->
 				element.on 'click', ->
 					$timeout ->
-						console.log on
-						FastClick.attach document.body
+						FastClick.attach document.querySelectorAll('.menu a')
 						return
 					, 600
+					return
 				return
 		]

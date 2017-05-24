@@ -36446,9 +36446,8 @@ sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', 
     return fr = {
       link: function(scope, element, attr) {
         element.on('click', function() {
-          return $timeout(function() {
-            console.log(true);
-            FastClick.attach(document.body);
+          $timeout(function() {
+            FastClick.attach(document.querySelectorAll('.menu a'));
           }, 600);
         });
       }
