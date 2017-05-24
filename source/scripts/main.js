@@ -36426,21 +36426,7 @@ var sprfc;
 
 sprfc = angular.module('sprfc');
 
-sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', ["$templateCache", require('./slider.coffee')]).directive('ngCarousel', ["$templateCache", require('./carousel.coffee')]).directive('ngSm', ["$rootScope", "$timeout", require('./sm.coffee')]).directive('ngFooter', ["$window", require('./footer.coffee')]).directive('ngForm', [require('./form.coffee')]).directive('ngInstagram', [require('./instagram.coffee')]).directive('ngScroll', [require('./scroll.coffee')]).directive('ngMap', ["$timeout", "loadGoogleMapAPI", "$compile", require('./map.coffee')]).directive('ngBlocks', ["$timeout", require('./blocks.coffee')]).directive('fastRefresh', [
-  '$timeout', function($timeout) {
-    var fr;
-    fr = {
-      link: function(scope, element, attr) {
-        element.on('click', function() {
-          return $timeout(function() {
-            console.log(true);
-            FastClick.attach(document.body);
-          }, 600);
-        });
-      }
-    };
-  }
-]).directive('onFinishRender', [
+sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', ["$templateCache", require('./slider.coffee')]).directive('ngCarousel', ["$templateCache", require('./carousel.coffee')]).directive('ngSm', ["$rootScope", "$timeout", require('./sm.coffee')]).directive('ngFooter', ["$window", require('./footer.coffee')]).directive('ngForm', [require('./form.coffee')]).directive('ngInstagram', [require('./instagram.coffee')]).directive('ngScroll', [require('./scroll.coffee')]).directive('ngMap', ["$timeout", "loadGoogleMapAPI", "$compile", require('./map.coffee')]).directive('ngBlocks', ["$timeout", require('./blocks.coffee')]).directive('onFinishRender', [
   "$timeout", function($timeout) {
     var endRepeat;
     return endRepeat = {
@@ -36451,6 +36437,20 @@ sprfc.directive('ngSquare', [require('./square.coffee')]).directive('ngSlider', 
             scope.$emit(attr.onFinishRender);
           });
         }
+      }
+    };
+  }
+]).directive('fastRefresh', [
+  '$timeout', function($timeout) {
+    var fr;
+    return fr = {
+      link: function(scope, element, attr) {
+        element.on('click', function() {
+          return $timeout(function() {
+            console.log(true);
+            FastClick.attach(document.body);
+          }, 600);
+        });
       }
     };
   }

@@ -10,17 +10,6 @@ sprfc
 	.directive 'ngScroll', [ require './scroll.coffee']
 	.directive 'ngMap', [ "$timeout", "loadGoogleMapAPI", "$compile", require './map.coffee']
 	.directive 'ngBlocks', ["$timeout", require './blocks.coffee']
-	.directive 'fastRefresh', ['$timeout', ($timeout)->
-		fr =
-			link : (scope, element, attr)->
-				element.on 'click', ->
-					$timeout ->
-						console.log on
-						FastClick.attach document.body
-						return
-					, 600
-				return
-		return]
 	.directive 'onFinishRender', ["$timeout", ($timeout)->
 		endRepeat = 
 			restrict : 'A'
@@ -31,3 +20,14 @@ sprfc
 						return
 				return
 	]
+	.directive 'fastRefresh', ['$timeout', ($timeout)->
+		fr =
+			link : (scope, element, attr)->
+				element.on 'click', ->
+					$timeout ->
+						console.log on
+						FastClick.attach document.body
+						return
+					, 600
+				return
+		]
