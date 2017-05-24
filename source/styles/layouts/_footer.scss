@@ -152,7 +152,7 @@
 			transition: $speed transform;
 			&--first {
 				transform: rotate(45deg) translate3d(0, 0, 0);
-				.popup__close:hover & {
+				.desktop .popup__close:hover & {
 					transform: rotate(-45deg) translate3d(0, 0, 0);
 				}
 			}
