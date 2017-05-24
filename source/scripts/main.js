@@ -36760,8 +36760,6 @@ var angular, sprfc;
 
 window.controller = new ScrollMagic.Controller();
 
-FastClick.attach(document.body);
-
 angular = require('angular');
 
 require('angular-resource');
@@ -36786,7 +36784,9 @@ var sprfc;
 
 sprfc = angular.module('sprfc');
 
-sprfc.run(["$templateCache", require('./templates.min')]);
+sprfc.run(function() {
+  FastClick.attach(document.body);
+}).run(["$templateCache", require('./templates.min')]);
 
 
 },{"./templates.min":25}],25:[function(require,module,exports){
