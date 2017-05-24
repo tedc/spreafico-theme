@@ -10,7 +10,7 @@ require './directives/index.coffee'
 require './models/index.coffee'
 require './resources/index.coffee'
 
-setTimoue ->
+setTimeout ->
 	FastClick.attach document.body
 	return
 , 20

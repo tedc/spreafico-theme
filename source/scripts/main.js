@@ -36791,7 +36791,7 @@ require('./models/index.coffee');
 
 require('./resources/index.coffee');
 
-setTimoue(function() {
+setTimeout(function() {
   FastClick.attach(document.body);
 }, 20);
 
