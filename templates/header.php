@@ -10,7 +10,7 @@
         </a>
         <?php get_template_part('templates/breadcrumb'); ?>
     </div>
-    <span class="banner__toggle" data-open="<?php _e('Menu', 'sprfc'); ?>" data-close="<?php _e('Chiudi', 'sprfc'); ?>" ng-click="isMenu=!isMenun;$event.stopPropagation()">
+    <span class="banner__toggle" data-open="<?php _e('Menu', 'sprfc'); ?>" data-close="<?php _e('Chiudi', 'sprfc'); ?>" ng-click="isMenu=!isMenu;$event.stopPropagation()">
         <span class="banner__toggle-line banner__toggle-line--top"></span>
         <span class="banner__toggle-line banner__toggle-line--center"></span>
         <span class="banner__toggle-line banner__toggle-line--bottom"></span>
