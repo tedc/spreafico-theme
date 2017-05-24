@@ -140,7 +140,9 @@
 }
 
 [ng-click] {
-	cursor: pointer;
+	.desktop & {
+		cursor: pointer;
+	}
 }
 
 [class*="showbtn"] {
