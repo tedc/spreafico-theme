@@ -212,6 +212,13 @@
 		}
 	}
 }
+[ng-scroll] {
+	.handheld & {
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
 .ps-scrollbar-y-rail {
 	position: absolute;
 	top: 0;

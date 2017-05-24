@@ -5,6 +5,7 @@
 
 html {
     color: transparent !important;
+    -webkit-overflow-scrolling:
     @include breakpoint($bp, false)  {
         overflow-x: hidden;
         overflow-y: auto;   

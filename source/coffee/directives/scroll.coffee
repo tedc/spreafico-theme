@@ -1,6 +1,7 @@
 module.exports = ($window)->
     ps =
         link : (scope, element, attrs)->
+            return if isMobile
             jqWindow = angular.element $window
             scope.$evalAsync ->
                 Ps.initialize element[0],
