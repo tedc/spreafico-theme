@@ -15,9 +15,10 @@ sprfc
 			link : (scope, element, attr)->
 				element.on 'click', ->
 					$timeout ->
+						console.log on
 						FastClick.attach document.body
 						return
-					, 500
+					, 600
 				return
 		return]
 	.directive 'onFinishRender', ["$timeout", ($timeout)->
