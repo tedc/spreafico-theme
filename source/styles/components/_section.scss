@@ -23,6 +23,9 @@
 				}
 			}
 		}
+		&--move {
+			overflow: hidden;
+		}
 	}
 	&__content {
 		@include grow();
