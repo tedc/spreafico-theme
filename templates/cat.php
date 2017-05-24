@@ -3,9 +3,9 @@
 	<a href="tel:<?php echo str_replace('.','',get_field('phone', 'options')); ?>"><?php the_field('phone', 'options'); ?></a>
 </nav>
 <div class="popup" ng-class="{'popup--visible':isPopup}" ng-scroll>
-	<span class="popup__close" ng-click="isPopup=false" data-close="<?php _e('Chiudi', 'sprfc'); ?>">
-		<span class="popup__close-line popup__close-line--first"></span>
-		<span class="popup__close-line popup__close-line--second"></span>
+	<span class="popup__close" ng-click="isPopup=false; $event.stopPropagation()" data-close="<?php _e('Chiudi', 'sprfc'); ?>">
+		<span ng-click="$event.stopPropagation()" class="popup__close-line popup__close-line--first"></span>
+		<span ng-click="$event.stopPropagation()" class="popup__close-line popup__close-line--second"></span>
 	</span>
 	<div class="popup__svg">
 		<?php
