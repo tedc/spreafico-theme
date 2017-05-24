@@ -121,14 +121,18 @@
 		width: $f;
 		display: flex;
 		flex-direction: column;
-		transition: opacity $speed, visibility $speed;
-		transition-delay: $speed/2;
+		.desktop & {
+			transition: opacity $speed, visibility $speed;
+			transition-delay: $speed/2;
+		}
 		//visibility: hidden;
 		//opacity: 0;
 		.banner--active & {	
 			visibility: visible;
 			opacity: 1;
-			transition-delay: 0;
+			.desktop & {
+				transition-delay: 0;
+			}
 		}
 		&-container {
 			flex: 20;
