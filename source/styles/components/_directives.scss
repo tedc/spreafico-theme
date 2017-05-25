@@ -364,7 +364,7 @@
 			}
 			.header__cell--even & {
 				right: em(40px) !important;
-				light: auto !important;
+				left: auto !important;
 			}
 			[class*="odd"] &, .section__cell--even & {
 				right: em(40px) * -1;
