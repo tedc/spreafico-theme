@@ -1,5 +1,5 @@
 <?php 
-	$brands = get_posts(array('post_type'=>'marchi', 'posts_per_page' =>-1));
+	$brands = get_posts(array('post_type'=>'marchi', 'posts_per_page' =>-1, 'orderby'=>'menu_order'));
 	$array = '';
 	$max = count($brands);
 	$count = 0; 
