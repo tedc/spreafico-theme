@@ -6,7 +6,7 @@
     	$sender = $name;
         $message = $_POST['message'];
         //$pTo = array('hello@bspkn.it');
-        $pTo = array('e.grandinetti@bspkn.it');
+        $pTo = array('spreafico.mobili@tiscali.it');
         $obj = $_POST['obj'];
         $pSubject = $obj.' da ' . $sender;
         $rSubject = $obj. ', risposta automatica da '.get_bloginfo('name');
@@ -29,12 +29,12 @@
             $mEmail = Swift_Message::newInstance();
             $mEmail->setSubject($pSubject);
             $mEmail->setTo($pTo);
-            //$mEmail->setBcc(array('e.grandinetti@bspkn.it','a.trussardi@bspkn.it', 'a.mangilli@bspkn.it', 'a.biffi@bspkn.it'));
+            $mEmail->setBcc(array('e.grandinetti@bspkn.it','hello@bspkn.it'));
             $mEmail->setFrom(array($email => $name));
             $mEmail->setReplyTo(array($email));
             $mEmail->setBody(template($body), 'text/html');
             $rEmail->setSubject($rSubject);
-            $rEmail->setFrom(array('e.grandinetti@bspkn.it' => get_bloginfo('name')));
+            $rEmail->setFrom(array('spreafico.mobili@tiscali.it' => get_bloginfo('name')));
             $rEmail->setTo(array($email));
             $rEmail->setBody(template($resp), 'text/html');
             if( $mMailer->send($mEmail) && $mMailer->send($rEmail)){
