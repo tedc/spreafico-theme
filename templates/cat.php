@@ -1,6 +1,6 @@
 <nav class="cat cat--shrink cat--grow" ng-footer>
 	<h4 class="cat__title cat__title--upper" fast-refresh ng-click="isPopup=true"><?php _e('Richiedi un preventivo', 'sprfc'); ?></h4>
-	<a href="tel:<?php echo str_replace('.','',get_field('phone', 'options')); ?>" class="phone"><?php the_field('phone', 'options'); ?></a>
+	<a href="tel:<?php echo str_replace('.','',get_field('phone', 'options')); ?>" class="phone-number"><?php the_field('phone', 'options'); ?></a>
 </nav>
 <div class="popup" ng-class="{'popup--visible':isPopup}" ng-scroll>
 	<span class="popup__close" ng-click=" $event.stopPropagation();isPopup=false;" data-close="<?php _e('Chiudi', 'sprfc'); ?>">
