@@ -5,7 +5,7 @@
         $tel = $_POST['tel'];
     	$sender = $name;
         $message = $_POST['message'];
-        //$pTo = array('hello@bspkn.it');
+        //$pTo = array('form@bspkn.it');
         $pTo = array('spreafico.mobili@tiscali.it');
         $obj = $_POST['obj'];
         $pSubject = $obj.' da ' . $sender;
@@ -29,7 +29,7 @@
             $mEmail = Swift_Message::newInstance();
             $mEmail->setSubject($pSubject);
             $mEmail->setTo($pTo);
-            $mEmail->setBcc(array('e.grandinetti@bspkn.it','hello@bspkn.it'));
+            $mEmail->setBcc(array('e.grandinetti@bspkn.it','form@bspkn.it'));
             $mEmail->setFrom(array($email => $name));
             $mEmail->setReplyTo(array($email));
             $mEmail->setBody(template($body), 'text/html');
