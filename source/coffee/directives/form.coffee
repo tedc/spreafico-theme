@@ -23,6 +23,7 @@ module.exports = ->
                             transformRequest: transformRequestAsFormPost
                         }).then (data)->
                             window.ga 'send', 'event', frmdata.obj, 'submit form' if window.ga
+                            window.fbq 'track', 'Lead' if window.fbq
                             $rootScope.isContactSent = on
                             $timeout ->
                                 $rootScope.isSubmitted = off

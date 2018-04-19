@@ -36407,6 +36407,9 @@ module.exports = function() {
               if (window.ga) {
                 window.ga('send', 'event', frmdata.obj, 'submit form');
               }
+              if (window.fbq) {
+                window.fbq('track', 'Lead');
+              }
               $rootScope.isContactSent = true;
               $timeout(function() {
                 $rootScope.isSubmitted = false;
