@@ -24,7 +24,7 @@
 	</div>
 </header>
 <?php else : ?>
-<header class="header header--static">
+<header class="header header--shrink header--static">
   <h1 class="header__title header__title--huge"><strong><?= Titles\title(); ?></strong></h1>
 </header>
 <?php endif; ?>
