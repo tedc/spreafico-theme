@@ -1,4 +1,5 @@
 <?php 
+	use Roots\Sage\Titles;
 	if(is_front_page() || is_singular('linee') || is_page_template( 'template-custom.php' )) :
 		$sm = '"tween":{"y" : -120},"triggerElement":"#header","triggerHook":0,"duration":"150vh","offset":80';
 ?>
