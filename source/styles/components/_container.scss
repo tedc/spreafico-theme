@@ -27,5 +27,11 @@
 			line-height: normal;
 			letter-spacing: 0;
 		}
+		a {
+			color: $brand-main;
+			&:hover {
+				color: $dark-color:;
+			}
+		}
 	}
 }
