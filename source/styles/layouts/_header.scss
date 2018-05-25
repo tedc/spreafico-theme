@@ -4,7 +4,7 @@
 	@include breakpoint($bp) {
 		min-height: mh($p*8);
 	}
-	.page-template-template-contact & {
+	.page-template-template-contact &, &--static {
 		min-height: 0;
 	}
 	&__cell {
