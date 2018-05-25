@@ -25,6 +25,6 @@
 </header>
 <?php else : ?>
 <header class="header header--shrink header--static">
-  <h1 class="header__title"><strong><?= Titles\title(); ?></strong></h1>
+  <h1 class="header__title header__title--small"><strong><?= Titles\title(); ?></strong></h1>
 </header>
 <?php endif; ?>
