@@ -4,7 +4,7 @@
 		$sm = '"tween":{"y" : -120},"triggerElement":"#header","triggerHook":0,"duration":"150vh","offset":80';
 ?>
 
-<header class="header header--grid header--grow-md<?php echo !is_page_template() ? ' header--static' : ''; ?>" id="header">
+<header class="header header--grid header--grow-md" id="header">
 	<div class="header__cell header__cell--figure header__cell--s6 <?php if(!get_field('is_gallery') && has_post_thumbnail()): echo ' header__cell--align-center'; endif; ?> header__cell--<?php the_field('image_position'); ?><?php if(get_field('is_gallery')): echo ' header__cell--slider'; endif; ?>"<?php scrollmagic($sm); ?><?php if(!get_field('is_gallery')):square('slider');endif; ?>>
 		<?php 
 			if(get_field('is_gallery') && get_field('header_gallery')) :
@@ -24,7 +24,7 @@
 	</div>
 </header>
 <?php else : ?>
-<header class="header">
+<header class="header header--static">
   <h1 class="header__title header__title--huge"><strong><?= Titles\title(); ?></strong></h1>
 </header>
 <?php endif; ?>
