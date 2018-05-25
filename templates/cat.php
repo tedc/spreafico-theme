@@ -24,6 +24,6 @@
 	</div>
 	<div class="popup__container popup__container--shrink popup__container--grow-lg" ng-scroll>
 	<?php $q = new WP_Query(array('post__in' => array($page_id),'post_type'=>'page')); while($q->have_posts()) : $q->the_post(); 
-			$obj = __('Richiesta di preventivo', 'sprfc'); include(locate_template ( 'templates/form.php', false, true )); endwhile; wp_reset_query(); ?>
+			$obj = __('Richiesta di preventivo', 'sprfc'); $type='popup'; include(locate_template ( 'templates/form.php', false, true )); endwhile; wp_reset_query(); ?>
 	</div>
 </div>
